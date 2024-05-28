@@ -1,4 +1,5 @@
-﻿
+﻿// Copyright Envar Games AB. All Rights Reserved.
+
 #include "AngelscriptBinds.h"
 #include "GameFramework/Actor.h"
 #include "Utilities/ImGuiScopedID.h"

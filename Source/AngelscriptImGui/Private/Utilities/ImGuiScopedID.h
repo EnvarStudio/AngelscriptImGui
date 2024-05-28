@@ -6,9 +6,6 @@
 #include "UObject/Object.h"
 #include "ImGuiScopedID.generated.h"
 
-/**
- * 
- */
 USTRUCT(BlueprintType)
 struct ANGELSCRIPTIMGUI_API FImGuiScopedID
 {

@@ -1,6 +1,5 @@
 ﻿// Copyright Envar Games AB. All Rights Reserved.
 
-
 #include "ImGuiScopedID.h"
 
 #include "ImGuiUtilities.h"
