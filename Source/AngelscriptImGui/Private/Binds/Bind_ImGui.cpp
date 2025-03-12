@@ -898,6 +898,21 @@ FAngelscriptBinds::FBind Bind_ImGui_Main_Widgets(FAngelscriptBinds::EOrder::Late
 	{
 		return ImGui::Checkbox(ToImGui(Label), &bValue);
 	});
+	FAngelscriptBinds::BindGlobalFunction("bool RadioButton(const FString& Label, bool bActive)",
+		[](const FString& Label, const bool bActive) -> bool
+	{
+		return ImGui::RadioButton(ToImGui(Label), bActive);
+	});
+	FAngelscriptBinds::BindGlobalFunction("bool RadioButton(const FString& Label, int32& Value, int32 ButtonValue)",
+		[](const FString& Label, int32& Value, const int32 ButtonValue) -> bool
+	{
+		return ImGui::RadioButton(ToImGui(Label), &Value, ButtonValue);
+	});
+	FAngelscriptBinds::BindGlobalFunction("bool ProgressBar(float32 Fraction, const FVector2f& Size = FVector2f(-1, 0), const FString& Overlay = \"\")",
+		[](const float Fraction, const FVector2f& Size, const FString& Overlay) -> void
+	{
+		ImGui::ProgressBar(Fraction, ToImGui(Size), ToImGui(Overlay));
+	});
 	FAngelscriptBinds::BindGlobalFunction("bool Bullet()",
 	[]() -> void
 	{
