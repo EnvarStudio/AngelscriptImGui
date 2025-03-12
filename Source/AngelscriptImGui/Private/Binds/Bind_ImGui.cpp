@@ -1676,6 +1676,16 @@ FAngelscriptBinds::FBind Bind_ImGui_TreeNode(FAngelscriptBinds::EOrder::Late, []
 	{
 		ImGui::TreePop();
 	});
+	FAngelscriptBinds::BindGlobalFunction("void SetNextTreeNodeOpen(bool bOpen, EImGuiCond Cond = EImGuiCond::None)",
+	[](const bool bOpen, const ImGuiCond Cond) -> void
+	{
+		ImGui::SetNextItemOpen(bOpen, Cond);
+	});
+	FAngelscriptBinds::BindGlobalFunction("bool CollapsingHeader(const FString& Label, EImGuiTreeNodeFlags Flags = EImGuiTreeNodeFlags::None)",
+	[](const FString& Label, const ImGuiTreeNodeFlags Flags) -> bool
+	{
+		return ImGui::CollapsingHeader(ToImGui(Label), Flags);
+	});
 });
 
 FAngelscriptBinds::FBind Bind_ImGui_Popups(FAngelscriptBinds::EOrder::Late, []
