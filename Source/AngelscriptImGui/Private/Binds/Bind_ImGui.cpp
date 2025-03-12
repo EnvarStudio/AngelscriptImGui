@@ -1940,6 +1940,14 @@ FAngelscriptBinds::FBind Bind_ImGui_Style(FAngelscriptBinds::EOrder::Late, []
 	[](const int32 Count) {
 		ImGui::PopStyleVar(Count);
 	});
+	FAngelscriptBinds::BindGlobalFunction("void PushItemWidth(float32 Width)",
+	[](const float Width) {
+		ImGui::PushItemWidth(Width);
+	});
+	FAngelscriptBinds::BindGlobalFunction("void PopItemWidth()",
+	[]() {
+		ImGui::PopItemWidth();
+	});
 });
 
 FAngelscriptBinds::FBind Bind_ImGui_Widget_InputUtilitiesMouse(FAngelscriptBinds::EOrder::Late, []
