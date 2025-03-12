@@ -888,6 +888,11 @@ FAngelscriptBinds::FBind Bind_ImGui_Main_Widgets(FAngelscriptBinds::EOrder::Late
 	{
 		return ImGui::Button(ToImGui(Label));
 	});
+	FAngelscriptBinds::BindGlobalFunction("bool Button(const FString& Label, const FVector2f& Size)",
+	[](const FString& Label, const FVector2f& Size) -> bool
+	{
+		return ImGui::Button(ToImGui(Label), ToImGui(Size));
+	});
 	FAngelscriptBinds::BindGlobalFunction("bool SmallButton(const FString& Label)",
 	[](const FString& Label) -> bool
 	{
