@@ -1842,6 +1842,31 @@ FAngelscriptBinds::FBind Bind_ImGui_Widget_InputUtilitiesKeyboard(FAngelscriptBi
 	});
 });
 
+FAngelscriptBinds::FBind Bind_ImGui_Style(FAngelscriptBinds::EOrder::Late, []
+{
+	FAngelscriptBinds::FNamespace ImGuiNamespace("ImGui");
+	FAngelscriptBinds::BindGlobalFunction("void PushStyleColor(EImGuiCol Idx, const FColor& Color)",
+	[](const ImGuiCol Idx, const FColor Color) {
+			ImGui::PushStyleColor(Idx, ToImGui(Color));
+	});
+	FAngelscriptBinds::BindGlobalFunction("void PopStyleColor(int32 Count = 1)",
+	[](const int32 Count) {
+		ImGui::PopStyleColor(Count);
+	});
+	FAngelscriptBinds::BindGlobalFunction("void PushStyleVar(EImGuiStyleVar idx, float32 val)",
+[](ImGuiStyleVar Idx, float Val) {
+		ImGui::PushStyleVar(Idx, Val);
+	});
+	FAngelscriptBinds::BindGlobalFunction("void PushStyleVar(EImGuiStyleVar idx, const FVector2f& val)",
+		[](ImGuiStyleVar Idx, const FVector2f& Val) {
+			ImGui::PushStyleVar(Idx, ToImGui(Val));
+		});
+	FAngelscriptBinds::BindGlobalFunction("void PopStyleVar(int32 Count = 1)",
+	[](const int32 Count) {
+		ImGui::PopStyleVar(Count);
+	});
+});
+
 FAngelscriptBinds::FBind Bind_ImGui_Widget_InputUtilitiesMouse(FAngelscriptBinds::EOrder::Late, []
 {
 	FAngelscriptBinds::FNamespace ImGuiNamespace("ImGui");
