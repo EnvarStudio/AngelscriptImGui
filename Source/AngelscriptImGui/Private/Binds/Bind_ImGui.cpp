@@ -1633,6 +1633,26 @@ FAngelscriptBinds::FBind Bind_ImGui_Tooltips(FAngelscriptBinds::EOrder::Late, []
 	});
 });
 
+FAngelscriptBinds::FBind Bind_ImGui_TreeNode(FAngelscriptBinds::EOrder::Late, []
+{
+	FAngelscriptBinds::FNamespace ImGuiNamespace("ImGui");
+	FAngelscriptBinds::BindGlobalFunction("bool TreeNode(const FString& Label)",
+	[](const FString& Label) -> bool
+	{
+		return ImGui::TreeNode(ToImGui(Label));
+	});
+	FAngelscriptBinds::BindGlobalFunction("bool TreeNodeEx(const FString& Label, EImGuiTreeNodeFlags Flags = EImGuiTreeNodeFlags::None)",
+	[](const FString& Label, const ImGuiTreeNodeFlags Flags) -> bool
+	{
+		return ImGui::TreeNodeEx(ToImGui(Label), Flags);
+	});
+	FAngelscriptBinds::BindGlobalFunction("void TreePop()",
+	[]() -> void
+	{
+		ImGui::TreePop();
+	});
+});
+
 FAngelscriptBinds::FBind Bind_ImGui_Popups(FAngelscriptBinds::EOrder::Late, []
 {
 	FAngelscriptBinds::FNamespace ImGuiNamespace("ImGui");
