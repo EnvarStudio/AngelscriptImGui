@@ -818,12 +818,12 @@ FAngelscriptBinds::FBind Bind_ImGui_Layout(FAngelscriptBinds::EOrder::Late, []
 	{
 		ImGui::Dummy(ToImGui(Size));
 	});
-	FAngelscriptBinds::BindGlobalFunction("void Indent(float32 Indent)",
+	FAngelscriptBinds::BindGlobalFunction("void Indent(float32 Indent= 0.0f)",
 	[](const float Indent) -> void
 	{
 		ImGui::Indent(Indent);
 	});
-	FAngelscriptBinds::BindGlobalFunction("void Unindent(float32 Size)",
+	FAngelscriptBinds::BindGlobalFunction("void Unindent(float32 Size= 0.0f)",
 	[](const float Indent) -> void
 	{
 		ImGui::Unindent(Indent);
