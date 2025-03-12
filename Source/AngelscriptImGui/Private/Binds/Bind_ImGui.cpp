@@ -838,6 +838,26 @@ FAngelscriptBinds::FBind Bind_ImGui_Layout(FAngelscriptBinds::EOrder::Late, []
 	{
 		ImGui::EndGroup();
 	});
+	FAngelscriptBinds::BindGlobalFunction("FVector2f GetCursorPos()",
+	[]() -> FVector2f
+	{
+		return ToUnreal(ImGui::GetCursorPos());
+	});
+	FAngelscriptBinds::BindGlobalFunction("float32 GetCursorPosX()",
+	[]() -> float
+	{
+		return ImGui::GetCursorPosX();
+	});
+	FAngelscriptBinds::BindGlobalFunction("float32 GetCursorPosY()",
+	[]() -> float
+	{
+		return ImGui::GetCursorPosY();
+	});
+	FAngelscriptBinds::BindGlobalFunction("void SetCursorPos(const FVector2f& Position)",
+	[](const FVector2f& Position) -> void
+	{
+		ImGui::SetCursorPos(ToImGui(Position));
+	});
 });
 
 FAngelscriptBinds::FBind Bind_ImGui_Text_Widgets(FAngelscriptBinds::EOrder::Late, []
