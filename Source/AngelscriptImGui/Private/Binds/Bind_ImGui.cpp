@@ -283,7 +283,7 @@ FAngelscriptBinds::FBind Bind_ImGuiDragDropFlags(FAngelscriptBinds::EOrder::Norm
 
 FAngelscriptBinds::FBind Bind_ImGuiKey(FAngelscriptBinds::EOrder::Normal, []
 {
-    IMGUI_ENUM(ImGuiKey, "Identifies a key");
+	IMGUI_ENUM(ImGuiKey, "Identifies a key");
 	IMGUI_ENUM_VALUE(ImGuiKey, None,);
 	IMGUI_ENUM_VALUE(ImGuiKey, Tab,);
 	IMGUI_ENUM_VALUE(ImGuiKey, LeftArrow,);
@@ -659,45 +659,45 @@ FAngelscriptBinds::FBind Bind_ImGui_Window_Utilities(FAngelscriptBinds::EOrder::
 {
 	FAngelscriptBinds::FNamespace ImGuiNamespace("ImGui");
 	FAngelscriptBinds::BindGlobalFunction("bool IsWindowAppearing()",
-    []() -> bool
-    {
-        return ImGui::IsWindowAppearing();
-    });
-    FAngelscriptBinds::BindGlobalFunction("bool IsWindowCollapsed()",
-    []() -> bool
-    {
-        return ImGui::IsWindowCollapsed();
-    });
-    FAngelscriptBinds::BindGlobalFunction("bool IsWindowFocused(EImGuiFocusedFlags flags = EImGuiFocusedFlags::None)",
-    [](ImGuiFocusedFlags Flags) -> bool
-    {
-        return ImGui::IsWindowFocused(Flags);
-    });
-    FAngelscriptBinds::BindGlobalFunction("bool IsWindowHovered(EImGuiHoveredFlags flags = EImGuiFocusedFlags::None)",
-    [](ImGuiFocusedFlags Flags) -> bool
-    {
-        return ImGui::IsWindowHovered(Flags);
-    });
-    FAngelscriptBinds::BindGlobalFunction("FVector2f GetWindowPos()",
-    []() -> FVector2f
-    {
-        return ToUnreal(ImGui::GetWindowPos());
-    });
-    FAngelscriptBinds::BindGlobalFunction("FVector2f GetWindowSize()",
-    []() -> FVector2f
-    {
-        return ToUnreal(ImGui::GetWindowSize());
-    });
-    FAngelscriptBinds::BindGlobalFunction("float32 GetWindowWidth()",
-    []() -> float
-    {
-        return ImGui::GetWindowWidth();
-    });
-    FAngelscriptBinds::BindGlobalFunction("float32 GetWindowHeight()",
-    []() -> float
-    {
-        return ImGui::GetWindowHeight();
-    });
+	[]() -> bool
+	{
+		return ImGui::IsWindowAppearing();
+	});
+	FAngelscriptBinds::BindGlobalFunction("bool IsWindowCollapsed()",
+	[]() -> bool
+	{
+		return ImGui::IsWindowCollapsed();
+	});
+	FAngelscriptBinds::BindGlobalFunction("bool IsWindowFocused(EImGuiFocusedFlags flags = EImGuiFocusedFlags::None)",
+	[](ImGuiFocusedFlags Flags) -> bool
+	{
+		return ImGui::IsWindowFocused(Flags);
+	});
+	FAngelscriptBinds::BindGlobalFunction("bool IsWindowHovered(EImGuiHoveredFlags flags = EImGuiFocusedFlags::None)",
+	[](ImGuiFocusedFlags Flags) -> bool
+	{
+		return ImGui::IsWindowHovered(Flags);
+	});
+	FAngelscriptBinds::BindGlobalFunction("FVector2f GetWindowPos()",
+	[]() -> FVector2f
+	{
+		return ToUnreal(ImGui::GetWindowPos());
+	});
+	FAngelscriptBinds::BindGlobalFunction("FVector2f GetWindowSize()",
+	[]() -> FVector2f
+	{
+		return ToUnreal(ImGui::GetWindowSize());
+	});
+	FAngelscriptBinds::BindGlobalFunction("float32 GetWindowWidth()",
+	[]() -> float
+	{
+		return ImGui::GetWindowWidth();
+	});
+	FAngelscriptBinds::BindGlobalFunction("float32 GetWindowHeight()",
+	[]() -> float
+	{
+		return ImGui::GetWindowHeight();
+	});
 	FAngelscriptBinds::BindGlobalFunction("float32 GetWindowContentRegionWidth()",
 	[]() -> float
 	{
@@ -924,17 +924,17 @@ FAngelscriptBinds::FBind Bind_ImGui_Main_Widgets(FAngelscriptBinds::EOrder::Late
 		return ImGui::Checkbox(ToImGui(Label), &bValue);
 	});
 	FAngelscriptBinds::BindGlobalFunction("bool RadioButton(const FString& Label, bool bActive)",
-		[](const FString& Label, const bool bActive) -> bool
+	[](const FString& Label, const bool bActive) -> bool
 	{
 		return ImGui::RadioButton(ToImGui(Label), bActive);
 	});
 	FAngelscriptBinds::BindGlobalFunction("bool RadioButton(const FString& Label, int32& Value, int32 ButtonValue)",
-		[](const FString& Label, int32& Value, const int32 ButtonValue) -> bool
+	[](const FString& Label, int32& Value, const int32 ButtonValue) -> bool
 	{
 		return ImGui::RadioButton(ToImGui(Label), &Value, ButtonValue);
 	});
 	FAngelscriptBinds::BindGlobalFunction("bool ProgressBar(float32 Fraction, const FVector2f& Size = FVector2f(-1, 0), const FString& Overlay = \"\")",
-		[](const float Fraction, const FVector2f& Size, const FString& Overlay) -> void
+	[](const float Fraction, const FVector2f& Size, const FString& Overlay) -> void
 	{
 		ImGui::ProgressBar(Fraction, ToImGui(Size), ToImGui(Overlay));
 	});
@@ -1391,8 +1391,7 @@ FAngelscriptBinds::FBind Bind_ImGui_InputText(FAngelscriptBinds::EOrder::Late, [
 			{
 				FCStringAnsi::Strncpy(Array.GetData(), TCHAR_TO_UTF8(*Buffer), Array.Num());
 			}
-			return ImGui::InputText(ToImGui(Label), Array.GetData(), Array.Num(), Flags,
-	[](ImGuiInputTextCallbackData* Data)
+			return ImGui::InputText(ToImGui(Label), Array.GetData(), Array.Num(), Flags, [](ImGuiInputTextCallbackData* Data)
 			{
 				*static_cast<FString*>(Data->UserData) = FString(UTF8_TO_TCHAR(Data->Buf));
 				return 0;
@@ -1828,71 +1827,71 @@ FAngelscriptBinds::FBind Bind_ImGui_Widget_Utilities(FAngelscriptBinds::EOrder::
 	FAngelscriptBinds::FNamespace ImGuiNamespace("ImGui");
 	FAngelscriptBinds::BindGlobalFunction("bool IsItemHovered(EImGuiHoveredFlags Flags = EImGuiHoveredFlags::None)",
 	[](const ImGuiHoveredFlags Flags) -> bool {
-	    return ImGui::IsItemHovered(Flags);
+		return ImGui::IsItemHovered(Flags);
 	});
 	FAngelscriptBinds::BindGlobalFunction("bool IsItemActive()",
 	[]() -> bool {
-	    return ImGui::IsItemActive();
+		return ImGui::IsItemActive();
 	});
 	FAngelscriptBinds::BindGlobalFunction("bool IsItemFocused()",
 	[]() -> bool {
-	    return ImGui::IsItemFocused();
+		return ImGui::IsItemFocused();
 	});
 	FAngelscriptBinds::BindGlobalFunction("bool IsItemClicked(EImGuiMouseButton MouseButton = EImGuiMouseButton::Left)",
 	[](const ImGuiMouseButton MouseButton) -> bool {
-	    return ImGui::IsItemClicked(MouseButton);
+		return ImGui::IsItemClicked(MouseButton);
 	});
 	FAngelscriptBinds::BindGlobalFunction("bool IsItemVisible()",
 	[]() -> bool {
-	    return ImGui::IsItemVisible();
+		return ImGui::IsItemVisible();
 	});
 	FAngelscriptBinds::BindGlobalFunction("bool IsItemEdited()",
 	[]() -> bool {
-	    return ImGui::IsItemEdited();
+		return ImGui::IsItemEdited();
 	});
 	FAngelscriptBinds::BindGlobalFunction("bool IsItemActivated()",
 	[]() -> bool {
-	    return ImGui::IsItemActivated();
+		return ImGui::IsItemActivated();
 	});
 	FAngelscriptBinds::BindGlobalFunction("bool IsItemDeactivated()",
 	[]() -> bool {
-	    return ImGui::IsItemDeactivated();
+		return ImGui::IsItemDeactivated();
 	});
 	FAngelscriptBinds::BindGlobalFunction("bool IsItemDeactivatedAfterEdit()",
 	[]() -> bool {
-	    return ImGui::IsItemDeactivatedAfterEdit();
+		return ImGui::IsItemDeactivatedAfterEdit();
 	});
 	FAngelscriptBinds::BindGlobalFunction("bool IsItemToggledOpen()",
 	[]() -> bool {
-	    return ImGui::IsItemToggledOpen();
+		return ImGui::IsItemToggledOpen();
 	});
 	FAngelscriptBinds::BindGlobalFunction("bool IsAnyItemHovered()",
 	[]() -> bool {
-	    return ImGui::IsAnyItemHovered();
+		return ImGui::IsAnyItemHovered();
 	});
 	FAngelscriptBinds::BindGlobalFunction("bool IsAnyItemActive()",
 	[]() -> bool {
-	    return ImGui::IsAnyItemActive();
+		return ImGui::IsAnyItemActive();
 	});
 	FAngelscriptBinds::BindGlobalFunction("bool IsAnyItemFocused()",
 	[]() -> bool {
-	    return ImGui::IsAnyItemFocused();
+		return ImGui::IsAnyItemFocused();
 	});
 	FAngelscriptBinds::BindGlobalFunction("FVector2f GetItemRectMin()",
 	[]() -> FVector2f {
-	    return ToUnreal(ImGui::GetItemRectMin());
+		return ToUnreal(ImGui::GetItemRectMin());
 	});
 	FAngelscriptBinds::BindGlobalFunction("FVector2f GetItemRectMax()",
 	[]() -> FVector2f {
-	    return ToUnreal(ImGui::GetItemRectMax());
+		return ToUnreal(ImGui::GetItemRectMax());
 	});
 	FAngelscriptBinds::BindGlobalFunction("FVector2f GetItemRectSize()",
 	[]() -> FVector2f {
-	    return ToUnreal(ImGui::GetItemRectSize());
+		return ToUnreal(ImGui::GetItemRectSize());
 	});
 	FAngelscriptBinds::BindGlobalFunction("void SetItemAllowOverlap()",
 	[]() -> void {
-	    ImGui::SetItemAllowOverlap();
+		ImGui::SetItemAllowOverlap();
 	});
 });
 
@@ -1929,13 +1928,13 @@ FAngelscriptBinds::FBind Bind_ImGui_Style(FAngelscriptBinds::EOrder::Late, []
 		ImGui::PopStyleColor(Count);
 	});
 	FAngelscriptBinds::BindGlobalFunction("void PushStyleVar(EImGuiStyleVar idx, float32 val)",
-[](ImGuiStyleVar Idx, float Val) {
+	[](ImGuiStyleVar Idx, float Val) {
 		ImGui::PushStyleVar(Idx, Val);
 	});
 	FAngelscriptBinds::BindGlobalFunction("void PushStyleVar(EImGuiStyleVar idx, const FVector2f& val)",
-		[](ImGuiStyleVar Idx, const FVector2f& Val) {
-			ImGui::PushStyleVar(Idx, ToImGui(Val));
-		});
+	[](ImGuiStyleVar Idx, const FVector2f& Val) {
+		ImGui::PushStyleVar(Idx, ToImGui(Val));
+	});
 	FAngelscriptBinds::BindGlobalFunction("void PopStyleVar(int32 Count = 1)",
 	[](const int32 Count) {
 		ImGui::PopStyleVar(Count);
