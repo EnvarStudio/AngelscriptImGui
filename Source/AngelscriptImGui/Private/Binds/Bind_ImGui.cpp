@@ -631,12 +631,12 @@ FAngelscriptBinds::FBind Bind_ImGui_Windows(FAngelscriptBinds::EOrder::Late, []
 	FAngelscriptBinds::BindGlobalFunction("bool Begin(const FString& Name, EImGuiWindowFlags Flags = EImGuiWindowFlags::None)",
 	[](const FString& Name, const ImGuiWindowFlags Flags) -> bool
 	{
-		return ImGui::Begin(ToImGui(Name), nullptr, Flags);
+		return ImGui::Begin(IMGUI_STR(Name), nullptr, Flags);
 	});
 	FAngelscriptBinds::BindGlobalFunction("bool Begin(const FString& Name, bool& bOpen, EImGuiWindowFlags Flags = EImGuiWindowFlags::None)",
 	[](const FString& Name, bool& bOpen, const ImGuiWindowFlags Flags) -> bool
 	{
-		return ImGui::Begin(ToImGui(Name), &bOpen, Flags);
+		return ImGui::Begin(IMGUI_STR(Name), &bOpen, Flags);
 	});
 	FAngelscriptBinds::BindGlobalFunction("void End()",
 	[]() -> void
@@ -646,7 +646,7 @@ FAngelscriptBinds::FBind Bind_ImGui_Windows(FAngelscriptBinds::EOrder::Late, []
 	FAngelscriptBinds::BindGlobalFunction("bool BeginChild(const FString& Name, const FVector2f& Size = FVector2f(0, 0), bool bBorder = false, EImGuiWindowFlags Flags = EImGuiWindowFlags::None)",
 	[](const FString& Name, const FVector2f& Position, const bool bBorder, const ImGuiWindowFlags Flags) -> bool
 	{
-		return ImGui::BeginChild(ToImGui(Name), ToImGui(Position), bBorder, Flags);
+		return ImGui::BeginChild(IMGUI_STR(Name), ToImGui(Position), bBorder, Flags);
 	});
 	FAngelscriptBinds::BindGlobalFunction("void EndChild()",
 	[]() -> void
@@ -771,22 +771,22 @@ FAngelscriptBinds::FBind Bind_ImGui_Window_Manipulation(FAngelscriptBinds::EOrde
 	FAngelscriptBinds::BindGlobalFunction("void SetWindowPosition(const FString& Name, const FVector2f& Position, EImGuiCond Condition = EImGuiCond::None)",
 	[](const FString& Name, const FVector2f& Position, const ImGuiCond Condition) -> void
 	{
-		ImGui::SetWindowPos(ToImGui(Name), ToImGui(Position), Condition);
+		ImGui::SetWindowPos(IMGUI_STR(Name), ToImGui(Position), Condition);
 	});
 	FAngelscriptBinds::BindGlobalFunction("void SetWindowSize(const FString& Name, const FVector2f& Size, EImGuiCond Condition = EImGuiCond::None)",
 	[](const FString& Name, const FVector2f& Size, const ImGuiCond Condition) -> void
 	{
-		ImGui::SetWindowSize(ToImGui(Name), ToImGui(Size), Condition);
+		ImGui::SetWindowSize(IMGUI_STR(Name), ToImGui(Size), Condition);
 	});
 	FAngelscriptBinds::BindGlobalFunction("void SetWindowCollapsed(const FString& Name, bool Collapsed, EImGuiCond Condition = EImGuiCond::None)",
 	[](const FString& Name, const bool Collapsed, const ImGuiCond Condition) -> void
 	{
-		ImGui::SetWindowCollapsed(ToImGui(Name), Collapsed, Condition);
+		ImGui::SetWindowCollapsed(IMGUI_STR(Name), Collapsed, Condition);
 	});
 	FAngelscriptBinds::BindGlobalFunction("void SetWindowFocus(const FString& Name)",
-	[](const char* Name) -> void
+	[](const FString& Name) -> void
 	{
-		ImGui::SetWindowFocus(ToImGui(Name));
+		ImGui::SetWindowFocus(IMGUI_STR(Name));
 	});
 });
 
@@ -866,37 +866,37 @@ FAngelscriptBinds::FBind Bind_ImGui_Text_Widgets(FAngelscriptBinds::EOrder::Late
 	FAngelscriptBinds::BindGlobalFunction("void TextUnformatted(const FString& Text)",
 	[](const FString& Text) -> void
 	{
-		ImGui::TextUnformatted(ToImGui(Text));
+		ImGui::TextUnformatted(IMGUI_STR(Text));
 	});
 	FAngelscriptBinds::BindGlobalFunction("void Text(const FString& Text)",
 	[](const FString& Text) -> void
 	{
-		ImGui::Text(ToImGui(Text));
+		ImGui::Text(IMGUI_STR(Text));
 	});
 	FAngelscriptBinds::BindGlobalFunction("void TextColored(const FColor& Color, const FString& Text)",
 	[](const FColor& Color, const FString& Text) -> void
 	{
-		ImGui::TextColored(ToImGui(Color), ToImGui(Text));
+		ImGui::TextColored(ToImGui(Color), IMGUI_STR(Text));
 	});
 	FAngelscriptBinds::BindGlobalFunction("void TextDisabled(const FString& Text)",
 	[](const FString& Text) -> void
 	{
-		ImGui::TextDisabled(ToImGui(Text));
+		ImGui::TextDisabled(IMGUI_STR(Text));
 	});
 	FAngelscriptBinds::BindGlobalFunction("void TextWrapped(const FString& Text)",
 	[](const FString& Text) -> void
 	{
-		ImGui::TextWrapped(ToImGui(Text));
+		ImGui::TextWrapped(IMGUI_STR(Text));
 	});
 	FAngelscriptBinds::BindGlobalFunction("void LabelText(const FString& Label, const FString& Text)",
 	[](const FString& Label, const FString& Text) -> void
 	{
-		ImGui::LabelText(ToImGui(Label), ToImGui(Text));
+		ImGui::LabelText(IMGUI_STR(Label), IMGUI_STR(Text));
 	});
 	FAngelscriptBinds::BindGlobalFunction("void BulletText(const FString& Text)",
 	[](const FString& Text) -> void
 	{
-		ImGui::BulletText(ToImGui(Text));
+		ImGui::BulletText(IMGUI_STR(Text));
 	});
 });
 
@@ -906,37 +906,37 @@ FAngelscriptBinds::FBind Bind_ImGui_Main_Widgets(FAngelscriptBinds::EOrder::Late
 	FAngelscriptBinds::BindGlobalFunction("bool Button(const FString& Label)",
 	[](const FString& Label) -> bool
 	{
-		return ImGui::Button(ToImGui(Label));
+		return ImGui::Button(IMGUI_STR(Label));
 	});
 	FAngelscriptBinds::BindGlobalFunction("bool Button(const FString& Label, const FVector2f& Size)",
 	[](const FString& Label, const FVector2f& Size) -> bool
 	{
-		return ImGui::Button(ToImGui(Label), ToImGui(Size));
+		return ImGui::Button(IMGUI_STR(Label), ToImGui(Size));
 	});
 	FAngelscriptBinds::BindGlobalFunction("bool SmallButton(const FString& Label)",
 	[](const FString& Label) -> bool
 	{
-		return ImGui::SmallButton(ToImGui(Label));
+		return ImGui::SmallButton(IMGUI_STR(Label));
 	});
 	FAngelscriptBinds::BindGlobalFunction("bool Checkbox(const FString& Label, bool& bValue)",
 	[](const FString& Label, bool& bValue) -> bool
 	{
-		return ImGui::Checkbox(ToImGui(Label), &bValue);
+		return ImGui::Checkbox(IMGUI_STR(Label), &bValue);
 	});
 	FAngelscriptBinds::BindGlobalFunction("bool RadioButton(const FString& Label, bool bActive)",
 	[](const FString& Label, const bool bActive) -> bool
 	{
-		return ImGui::RadioButton(ToImGui(Label), bActive);
+		return ImGui::RadioButton(IMGUI_STR(Label), bActive);
 	});
 	FAngelscriptBinds::BindGlobalFunction("bool RadioButton(const FString& Label, int32& Value, int32 ButtonValue)",
 	[](const FString& Label, int32& Value, const int32 ButtonValue) -> bool
 	{
-		return ImGui::RadioButton(ToImGui(Label), &Value, ButtonValue);
+		return ImGui::RadioButton(IMGUI_STR(Label), &Value, ButtonValue);
 	});
 	FAngelscriptBinds::BindGlobalFunction("bool ProgressBar(float32 Fraction, const FVector2f& Size = FVector2f(-1, 0), const FString& Overlay = \"\")",
 	[](const float Fraction, const FVector2f& Size, const FString& Overlay) -> void
 	{
-		ImGui::ProgressBar(Fraction, ToImGui(Size), ToImGui(Overlay));
+		ImGui::ProgressBar(Fraction, ToImGui(Size), IMGUI_STR(Overlay));
 	});
 	FAngelscriptBinds::BindGlobalFunction("bool Bullet()",
 	[]() -> void
@@ -951,7 +951,7 @@ FAngelscriptBinds::FBind Bind_ImGui_Combo(FAngelscriptBinds::EOrder::Late, []
 	FAngelscriptBinds::BindGlobalFunction("bool BeginCombo(const FString& Label, const FString& PreviewValue, EImGuiComboFlags Flags = EImGuiComboFlags::None)",
 	[](const FString& Label, const FString& PreviewValue, const ImGuiComboFlags Flags) -> bool
 	{
-		return ImGui::BeginCombo(ToImGui(Label), ToImGui(PreviewValue), Flags);
+		return ImGui::BeginCombo(IMGUI_STR(Label), IMGUI_STR(PreviewValue), Flags);
 	});
 	FAngelscriptBinds::BindGlobalFunction("void EndCombo()",
 	[]() -> void
@@ -962,7 +962,7 @@ FAngelscriptBinds::FBind Bind_ImGui_Combo(FAngelscriptBinds::EOrder::Late, []
 	[](const FString& Label, int32& CurrentItem, const TArray<FString>& Items, const int32 PopupMaxItems = -1) -> bool
 	{
 		FStringArrayToPtrHelper ItemsBuffer(Items);
-		return ImGui::Combo(ToImGui(Label), &CurrentItem, ItemsBuffer.GetPtr(), Items.Num(), PopupMaxItems);
+		return ImGui::Combo(IMGUI_STR(Label), &CurrentItem, ItemsBuffer.GetPtr(), Items.Num(), PopupMaxItems);
 	});
 });
 
@@ -972,7 +972,7 @@ FAngelscriptBinds::FBind Bind_ImGui_Table(FAngelscriptBinds::EOrder::Late, []
 	FAngelscriptBinds::BindGlobalFunction("bool BeginTable(const FString& Label, const int Column, EImGuiTableFlags Flags = EImGuiTableFlags::None)",
 	[](const FString& Label, const int Column, const ImGuiTableFlags Flags) -> bool
 	{
-		return ImGui::BeginTable(ToImGui(Label), Column, Flags);
+		return ImGui::BeginTable(IMGUI_STR(Label), Column, Flags);
 	});
 	FAngelscriptBinds::BindGlobalFunction("void EndTable()",
 	[]() -> void
@@ -982,7 +982,7 @@ FAngelscriptBinds::FBind Bind_ImGui_Table(FAngelscriptBinds::EOrder::Late, []
 	FAngelscriptBinds::BindGlobalFunction("void TableSetupColumn(const FString& Label, EImGuiTableFlags Flags = EImGuiTableFlags::None)",
 	[](const FString& Label, const ImGuiTableFlags Flags) -> void
 	{
-		ImGui::TableSetupColumn(ToImGui(Label), Flags);
+		ImGui::TableSetupColumn(IMGUI_STR(Label), Flags);
 	});
 	FAngelscriptBinds::BindGlobalFunction("void TableNextColumn()",
 	[]() -> void
@@ -1007,67 +1007,67 @@ FAngelscriptBinds::FBind Bind_ImGui_Slider_Widgets(FAngelscriptBinds::EOrder::La
 	FAngelscriptBinds::BindGlobalFunction("bool SliderFloat(const FString& Label, float32& Value, const float32 Min, const float32 Max, const FString& Format = \"%.3f\", EImGuiSliderFlags Flags = EImGuiSliderFlags::None)",
 	[](const FString& Label, float& Value, const float Min, const float Max, const FString& Format, const ImGuiSliderFlags Flags) -> bool
 	{
-		return ImGui::SliderScalar(ToImGui(Label), ImGuiDataType_Float, &Value, &Min, &Max, ToImGui(Format), Flags);
+		return ImGui::SliderScalar(IMGUI_STR(Label), ImGuiDataType_Float, &Value, &Min, &Max, IMGUI_STR(Format), Flags);
 	});
 	FAngelscriptBinds::BindGlobalFunction("bool SliderFloat(const FString& Label, float64& Value, const float64 Min, const float64 Max, const FString& Format = \"%.3f\", EImGuiSliderFlags Flags = EImGuiSliderFlags::None)",
 	[](const FString& Label, double& Value, const double Min, const double Max, const FString& Format, const ImGuiSliderFlags Flags) -> bool
 	{
-		return ImGui::SliderScalar(ToImGui(Label), ImGuiDataType_Double, &Value, &Min, &Max, ToImGui(Format), Flags);
+		return ImGui::SliderScalar(IMGUI_STR(Label), ImGuiDataType_Double, &Value, &Min, &Max, IMGUI_STR(Format), Flags);
 	});
 	FAngelscriptBinds::BindGlobalFunction("bool SliderInt(const FString& Label, int64& Value, int64 Min, int64 Max, EImGuiSliderFlags Flags = EImGuiSliderFlags::None)",
 	[](const FString& Label, int64& Value, const int64 Min, const int64 Max, const ImGuiSliderFlags Flags) -> bool
 	{
-		return ImGui::SliderScalar(ToImGui(Label), ImGuiDataType_S64, &Value, &Min, &Max, nullptr, Flags);
+		return ImGui::SliderScalar(IMGUI_STR(Label), ImGuiDataType_S64, &Value, &Min, &Max, nullptr, Flags);
 	});
 	FAngelscriptBinds::BindGlobalFunction("bool SliderInt(const FString& Label, uint64& Value, int64 Min, uint64 Max, EImGuiSliderFlags Flags = EImGuiSliderFlags::None)",
 	[](const FString& Label, uint64& Value, const uint64 Min, const uint64 Max, const ImGuiSliderFlags Flags) -> bool
 	{
-		return ImGui::SliderScalar(ToImGui(Label), ImGuiDataType_U64, &Value, &Min, &Max, nullptr, Flags);
+		return ImGui::SliderScalar(IMGUI_STR(Label), ImGuiDataType_U64, &Value, &Min, &Max, nullptr, Flags);
 	});
 	FAngelscriptBinds::BindGlobalFunction("bool SliderInt(const FString& Label, int32& Value, int32 Min, int32 Max, EImGuiSliderFlags Flags = EImGuiSliderFlags::None)",
 	[](const FString& Label, int32& Value, const int32 Min, const int32 Max, const ImGuiSliderFlags Flags) -> bool
 	{
-		return ImGui::SliderScalar(ToImGui(Label), ImGuiDataType_S32, &Value, &Min, &Max, nullptr, Flags);
+		return ImGui::SliderScalar(IMGUI_STR(Label), ImGuiDataType_S32, &Value, &Min, &Max, nullptr, Flags);
 	});
 	FAngelscriptBinds::BindGlobalFunction("bool SliderInt(const FString& Label, uint32& Value, int64 Min, uint32 Max, EImGuiSliderFlags Flags = EImGuiSliderFlags::None)",
 	[](const FString& Label, uint32& Value, const uint32 Min, const uint32 Max, const ImGuiSliderFlags Flags) -> bool
 	{
-		return ImGui::SliderScalar(ToImGui(Label), ImGuiDataType_U32, &Value, &Min, &Max, nullptr, Flags);
+		return ImGui::SliderScalar(IMGUI_STR(Label), ImGuiDataType_U32, &Value, &Min, &Max, nullptr, Flags);
 	});
 	FAngelscriptBinds::BindGlobalFunction("bool SliderInt(const FString& Label, int16& Value, int64 Min, int16 Max, EImGuiSliderFlags Flags = EImGuiSliderFlags::None)",
 	[](const FString& Label, int16& Value, const int16 Min, const int16 Max, const ImGuiSliderFlags Flags) -> bool
 	{
-		return ImGui::SliderScalar(ToImGui(Label), ImGuiDataType_S16, &Value, &Min, &Max, nullptr, Flags);
+		return ImGui::SliderScalar(IMGUI_STR(Label), ImGuiDataType_S16, &Value, &Min, &Max, nullptr, Flags);
 	});
 	FAngelscriptBinds::BindGlobalFunction("bool SliderInt(const FString& Label, uint16& Value, int64 Min, uint16 Max, EImGuiSliderFlags Flags = EImGuiSliderFlags::None)",
 	[](const FString& Label, uint16& Value, const uint16 Min, const uint16 Max, const ImGuiSliderFlags Flags) -> bool
 	{
-		return ImGui::SliderScalar(ToImGui(Label), ImGuiDataType_U16, &Value, &Min, &Max, nullptr, Flags);
+		return ImGui::SliderScalar(IMGUI_STR(Label), ImGuiDataType_U16, &Value, &Min, &Max, nullptr, Flags);
 	});
 	FAngelscriptBinds::BindGlobalFunction("bool SliderInt(const FString& Label, int8& Value, int64 Min, int8 Max, EImGuiSliderFlags Flags = EImGuiSliderFlags::None)",
 	[](const FString& Label, int8& Value, const int8 Min, const int8 Max, const ImGuiSliderFlags Flags) -> bool
 	{
-		return ImGui::SliderScalar(ToImGui(Label), ImGuiDataType_S8, &Value, &Min, &Max, nullptr, Flags);
+		return ImGui::SliderScalar(IMGUI_STR(Label), ImGuiDataType_S8, &Value, &Min, &Max, nullptr, Flags);
 	});
 	FAngelscriptBinds::BindGlobalFunction("bool SliderInt(const FString& Label, uint8& Value, int64 Min, uint8 Max, EImGuiSliderFlags Flags = EImGuiSliderFlags::None)",
 	[](const FString& Label, uint8& Value, const uint8 Min, const uint8 Max, const ImGuiSliderFlags Flags) -> bool
 	{
-		return ImGui::SliderScalar(ToImGui(Label), ImGuiDataType_U8, &Value, &Min, &Max, nullptr, Flags);
+		return ImGui::SliderScalar(IMGUI_STR(Label), ImGuiDataType_U8, &Value, &Min, &Max, nullptr, Flags);
 	});
 	FAngelscriptBinds::BindGlobalFunction("bool SliderFloat2(const FString& Label, FVector2f& Value, float32 Min, float32 Max, const FString& Format = \"%.3f\", EImGuiSliderFlags Flags = EImGuiSliderFlags::None)",
 	[](const FString& Label, FVector2f& Value, const float Min, const float Max, const FString& Format, const ImGuiSliderFlags Flags) -> bool
 	{
-		return ImGui::SliderScalarN(ToImGui(Label), ImGuiDataType_Float, &Value, 2, &Min, &Max, ToImGui(Format), Flags);
+		return ImGui::SliderScalarN(IMGUI_STR(Label), ImGuiDataType_Float, &Value, 2, &Min, &Max, IMGUI_STR(Format), Flags);
 	});
 	FAngelscriptBinds::BindGlobalFunction("bool SliderFloat2(const FString& Label, FVector2D& Value, float64 Min, float64 Max, const FString& Format = \"%.3f\", EImGuiSliderFlags Flags = EImGuiSliderFlags::None)",
 	[](const FString& Label, FVector2D& Value, const double Min, const double Max, const FString& Format, const ImGuiSliderFlags Flags) -> bool
 	{
-		return ImGui::SliderScalarN(ToImGui(Label), ImGuiDataType_Double, &Value, 2, &Min, &Max, ToImGui(Format), Flags);
+		return ImGui::SliderScalarN(IMGUI_STR(Label), ImGuiDataType_Double, &Value, 2, &Min, &Max, IMGUI_STR(Format), Flags);
 	});
 	FAngelscriptBinds::BindGlobalFunction("bool SliderFloat3(const FString& Label, FVector3f& Value, float32 Min, float32 Max, const FString& Format = \"%.3f\", EImGuiSliderFlags Flags = EImGuiSliderFlags::None)",
 	[](const FString& Label, FVector3f& Value, const float Min, const float Max, const FString& Format, const ImGuiSliderFlags Flags) -> bool
 	{
-		return ImGui::SliderScalarN(ToImGui(Label), ImGuiDataType_Float, &Value, 3, &Min, &Max, ToImGui(Format), Flags);
+		return ImGui::SliderScalarN(IMGUI_STR(Label), ImGuiDataType_Float, &Value, 3, &Min, &Max, IMGUI_STR(Format), Flags);
 	});
 	// FAngelscriptBinds::BindGlobalFunction("bool SliderFloat3(const FString& Label, FVector3d& Value, float64 Min, float64 Max, const FString& Format = \"%.3f\", EImGuiSliderFlags Flags = EImGuiSliderFlags::None)",
 	// [](const FString& Label, FVector3d& Value, const double Min, const double Max, const FString& Format, const ImGuiSliderFlags Flags) -> bool
@@ -1077,7 +1077,7 @@ FAngelscriptBinds::FBind Bind_ImGui_Slider_Widgets(FAngelscriptBinds::EOrder::La
 	FAngelscriptBinds::BindGlobalFunction("bool SliderFloat3(const FString& Label, FVector& Value, float64 Min, float64 Max, const FString& Format = \"%.3f\", EImGuiSliderFlags Flags = EImGuiSliderFlags::None)",
 	[](const FString& Label, FVector& Value, const double Min, const double Max, const FString& Format, const ImGuiSliderFlags Flags) -> bool
 	{
-		return ImGui::SliderScalarN(ToImGui(Label), ImGuiDataType_Double, &Value, 3, &Min, &Max, ToImGui(Format), Flags);
+		return ImGui::SliderScalarN(IMGUI_STR(Label), ImGuiDataType_Double, &Value, 3, &Min, &Max, IMGUI_STR(Format), Flags);
 	});
 	// FAngelscriptBinds::BindGlobalFunction("bool SliderFloat4(const FString& Label, FVector4f& Value, float32 Min, float32 Max, const FString& Format = \"%.3f\", EImGuiSliderFlags Flags = EImGuiSliderFlags::None)",
 	// [](const FString& Label, FVector4f& Value, const float Min, const float Max, const FString& Format, const ImGuiSliderFlags Flags) -> bool
@@ -1190,67 +1190,67 @@ FAngelscriptBinds::FBind Bind_ImGui_Drag_Widgets(FAngelscriptBinds::EOrder::Late
 	FAngelscriptBinds::BindGlobalFunction("bool DragFloat(const FString& Label, float32& Value, float32 Speed, float32 Min, float32 Max, const FString& Format = \"%.3f\", EImGuiSliderFlags Flags = EImGuiSliderFlags::None)",
 	[](const FString& Label, float& Value, const float Speed, const float Min, const float Max, const FString& Format, const ImGuiSliderFlags Flags) -> bool
 	{
-		return ImGui::DragScalar(ToImGui(Label), ImGuiDataType_Float, &Value, Speed, &Min, &Max, ToImGui(Format), Flags);
+		return ImGui::DragScalar(IMGUI_STR(Label), ImGuiDataType_Float, &Value, Speed, &Min, &Max, IMGUI_STR(Format), Flags);
 	});
 	FAngelscriptBinds::BindGlobalFunction("bool DragFloat(const FString& Label, float64& Value, float32 Speed, float64 Min, float64 Max, const FString& Format = \"%.3f\", EImGuiSliderFlags Flags = EImGuiSliderFlags::None)",
 	[](const FString& Label, double& Value, const float Speed, const double Min, const double Max, const FString& Format, const ImGuiSliderFlags Flags) -> bool
 	{
-		return ImGui::DragScalar(ToImGui(Label), ImGuiDataType_Double, &Value, Speed, &Min, &Max, ToImGui(Format), Flags);
+		return ImGui::DragScalar(IMGUI_STR(Label), ImGuiDataType_Double, &Value, Speed, &Min, &Max, IMGUI_STR(Format), Flags);
 	});
 	FAngelscriptBinds::BindGlobalFunction("bool DragInt(const FString& Label, int64& Value, float32 Speed, int64 Min, int64 Max, EImGuiSliderFlags Flags = EImGuiSliderFlags::None)",
 	[](const FString& Label, int64& Value, const float Speed, const int64 Min, const int64 Max, const ImGuiSliderFlags Flags) -> bool
 	{
-		return ImGui::DragScalar(ToImGui(Label), ImGuiDataType_S64, &Value, Speed, &Min, &Max, nullptr, Flags);
+		return ImGui::DragScalar(IMGUI_STR(Label), ImGuiDataType_S64, &Value, Speed, &Min, &Max, nullptr, Flags);
 	});
 	FAngelscriptBinds::BindGlobalFunction("bool DragInt(const FString& Label, uint64& Value, float32 Speed, uint64 Min, uint64 Max, EImGuiSliderFlags Flags = EImGuiSliderFlags::None)",
 	[](const FString& Label, uint64& Value, const float Speed, const uint64 Min, const uint64 Max, const ImGuiSliderFlags Flags) -> bool
 	{
-		return ImGui::DragScalar(ToImGui(Label), ImGuiDataType_U64, &Value, Speed, &Min, &Max, nullptr, Flags);
+		return ImGui::DragScalar(IMGUI_STR(Label), ImGuiDataType_U64, &Value, Speed, &Min, &Max, nullptr, Flags);
 	});
 	FAngelscriptBinds::BindGlobalFunction("bool DragInt(const FString& Label, int32& Value, float32 Speed, int32 Min, int32 Max, EImGuiSliderFlags Flags = EImGuiSliderFlags::None)",
 	[](const FString& Label, int32& Value, const float Speed, const int32 Min, const int32 Max, const ImGuiSliderFlags Flags) -> bool
 	{
-		return ImGui::DragScalar(ToImGui(Label), ImGuiDataType_S32, &Value, Speed, &Min, &Max, nullptr, Flags);
+		return ImGui::DragScalar(IMGUI_STR(Label), ImGuiDataType_S32, &Value, Speed, &Min, &Max, nullptr, Flags);
 	});
 	FAngelscriptBinds::BindGlobalFunction("bool DragInt(const FString& Label, uint32& Value, float32 Speed, uint32 Min, uint32 Max, EImGuiSliderFlags Flags = EImGuiSliderFlags::None)",
 	[](const FString& Label, uint32& Value, const float Speed, const uint32 Min, const uint32 Max, const ImGuiSliderFlags Flags) -> bool
 	{
-		return ImGui::DragScalar(ToImGui(Label), ImGuiDataType_U32, &Value, Speed, &Min, &Max, nullptr, Flags);
+		return ImGui::DragScalar(IMGUI_STR(Label), ImGuiDataType_U32, &Value, Speed, &Min, &Max, nullptr, Flags);
 	});
 	FAngelscriptBinds::BindGlobalFunction("bool DragInt(const FString& Label, int16& Value, float32 Speed, int16 Min, int16 Max, EImGuiSliderFlags Flags = EImGuiSliderFlags::None)",
 	[](const FString& Label, int16& Value, const float Speed, const int16 Min, const int16 Max, const ImGuiSliderFlags Flags) -> bool
 	{
-		return ImGui::DragScalar(ToImGui(Label), ImGuiDataType_S16, &Value, Speed, &Min, &Max, nullptr, Flags);
+		return ImGui::DragScalar(IMGUI_STR(Label), ImGuiDataType_S16, &Value, Speed, &Min, &Max, nullptr, Flags);
 	});
 	FAngelscriptBinds::BindGlobalFunction("bool DragInt(const FString& Label, uint16& Value, float32 Speed, uint16 Min, uint16 Max, EImGuiSliderFlags Flags = EImGuiSliderFlags::None)",
 	[](const FString& Label, uint16& Value, const float Speed, const uint16 Min, const uint16 Max, const ImGuiSliderFlags Flags) -> bool
 	{
-		return ImGui::DragScalar(ToImGui(Label), ImGuiDataType_U16, &Value, Speed, &Min, &Max, nullptr, Flags);
+		return ImGui::DragScalar(IMGUI_STR(Label), ImGuiDataType_U16, &Value, Speed, &Min, &Max, nullptr, Flags);
 	});
 	FAngelscriptBinds::BindGlobalFunction("bool DragInt(const FString& Label, int8& Value, float32 Speed, int8 Min, int8 Max, EImGuiSliderFlags Flags = EImGuiSliderFlags::None)",
 	[](const FString& Label, int8& Value, const float Speed, const int8 Min, const int8 Max, const ImGuiSliderFlags Flags) -> bool
 	{
-		return ImGui::DragScalar(ToImGui(Label), ImGuiDataType_S8, &Value, Speed, &Min, &Max, nullptr, Flags);
+		return ImGui::DragScalar(IMGUI_STR(Label), ImGuiDataType_S8, &Value, Speed, &Min, &Max, nullptr, Flags);
 	});
 	FAngelscriptBinds::BindGlobalFunction("bool DragInt(const FString& Label, uint8& Value, float32 Speed, uint8 Min, uint8 Max, EImGuiSliderFlags Flags = EImGuiSliderFlags::None)",
 	[](const FString& Label, uint8& Value, const float Speed, const uint8 Min, const uint8 Max, const ImGuiSliderFlags Flags) -> bool
 	{
-		return ImGui::DragScalar(ToImGui(Label), ImGuiDataType_U8, &Value, Speed, &Min, &Max, nullptr, Flags);
+		return ImGui::DragScalar(IMGUI_STR(Label), ImGuiDataType_U8, &Value, Speed, &Min, &Max, nullptr, Flags);
 	});
 	FAngelscriptBinds::BindGlobalFunction("bool DragFloat2(const FString& Label, FVector2f& Value, float32 Speed, float32 Min, float32 Max, const FString& Format = \"%.3f\", EImGuiSliderFlags Flags = EImGuiSliderFlags::None)",
 	[](const FString& Label, FVector2f& Value, const float Speed, const float Min, const float Max, const FString& Format, const ImGuiSliderFlags Flags) -> bool
 	{
-		return ImGui::DragScalarN(ToImGui(Label), ImGuiDataType_Float, &Value, 2, Speed, &Min, &Max, ToImGui(Format), Flags);
+		return ImGui::DragScalarN(IMGUI_STR(Label), ImGuiDataType_Float, &Value, 2, Speed, &Min, &Max, IMGUI_STR(Format), Flags);
 	});
 	FAngelscriptBinds::BindGlobalFunction("bool DragFloat2(const FString& Label, FVector2D& Value, float32 Speed, float64 Min, float64 Max, const FString& Format = \"%.3f\", EImGuiSliderFlags Flags = EImGuiSliderFlags::None)",
 	[](const FString& Label, FVector2D& Value, const float Speed, const double Min, const double Max, const FString& Format, const ImGuiSliderFlags Flags) -> bool
 	{
-		return ImGui::DragScalarN(ToImGui(Label), ImGuiDataType_Double, &Value, 2, Speed, &Min, &Max, ToImGui(Format), Flags);
+		return ImGui::DragScalarN(IMGUI_STR(Label), ImGuiDataType_Double, &Value, 2, Speed, &Min, &Max, IMGUI_STR(Format), Flags);
 	});
 	FAngelscriptBinds::BindGlobalFunction("bool DragFloat3(const FString& Label, FVector3f& Value, float32 Speed, float32 Min, float32 Max, const FString& Format = \"%.3f\", EImGuiSliderFlags Flags = EImGuiSliderFlags::None)",
 	[](const FString& Label, FVector3f& Value, const float Speed, const float Min, const float Max, const FString& Format, const ImGuiSliderFlags Flags) -> bool
 	{
-		return ImGui::DragScalarN(ToImGui(Label), ImGuiDataType_Float, &Value, 3, Speed, &Min, &Max, ToImGui(Format), Flags);
+		return ImGui::DragScalarN(IMGUI_STR(Label), ImGuiDataType_Float, &Value, 3, Speed, &Min, &Max, IMGUI_STR(Format), Flags);
 	});
 	// FAngelscriptBinds::BindGlobalFunction("bool DragFloat3(const FString& Label, FVector3d& Value, float32 Speed, float64 Min, float64 Max, const FString& Format = \"%.3f\", EImGuiSliderFlags Flags = EImGuiSliderFlags::None)",
 	// [](const FString& Label, FVector3d& Value, const float Speed, const double Min, const double Max, const FString& Format, const ImGuiSliderFlags Flags) -> bool
@@ -1260,7 +1260,7 @@ FAngelscriptBinds::FBind Bind_ImGui_Drag_Widgets(FAngelscriptBinds::EOrder::Late
 	FAngelscriptBinds::BindGlobalFunction("bool DragFloat3(const FString& Label, FVector& Value, float32 Speed, float64 Min, float64 Max, const FString& Format = \"%.3f\", EImGuiSliderFlags Flags = EImGuiSliderFlags::None)",
 	[](const FString& Label, FVector& Value, const float Speed, const double Min, const double Max, const FString& Format, const ImGuiSliderFlags Flags) -> bool
 	{
-		return ImGui::DragScalarN(ToImGui(Label), ImGuiDataType_Double, &Value, 3, Speed, &Min, &Max, ToImGui(Format), Flags);
+		return ImGui::DragScalarN(IMGUI_STR(Label), ImGuiDataType_Double, &Value, 3, Speed, &Min, &Max, IMGUI_STR(Format), Flags);
 	});
 	// FAngelscriptBinds::BindGlobalFunction("bool DragFloat4(const FString& Label, FVector4f& Value, float32 Speed, float32 Min, float32 Max, const FString& Format = \"%.3f\", EImGuiSliderFlags Flags = EImGuiSliderFlags::None)",
 	// [](const FString& Label, FVector4f& Value, const float Speed, const float Min, const float Max, const FString& Format, const ImGuiSliderFlags Flags) -> bool
@@ -1391,7 +1391,7 @@ FAngelscriptBinds::FBind Bind_ImGui_InputText(FAngelscriptBinds::EOrder::Late, [
 			{
 				FCStringAnsi::Strncpy(Array.GetData(), TCHAR_TO_UTF8(*Buffer), Array.Num());
 			}
-			return ImGui::InputText(ToImGui(Label), Array.GetData(), Array.Num(), Flags, [](ImGuiInputTextCallbackData* Data)
+			return ImGui::InputText(IMGUI_STR(Label), Array.GetData(), Array.Num(), Flags, [](ImGuiInputTextCallbackData* Data)
 			{
 				*static_cast<FString*>(Data->UserData) = FString(UTF8_TO_TCHAR(Data->Buf));
 				return 0;
@@ -1404,73 +1404,73 @@ FAngelscriptBinds::FBind Bind_ImGui_Input_Widgets(FAngelscriptBinds::EOrder::Lat
 	FAngelscriptBinds::BindGlobalFunction("bool InputFloat(const FString& Label, float32& Value, float32 Step = 0.1, float32 StepFast = 10, const FString& Format = \"%.3f\", EImGuiInputTextFlags Flags = EImGuiInputTextFlags::None)",
 	[](const FString& Label, float& Value, const float Step, const float StepFast, const FString& Format, const ImGuiInputTextFlags Flags) -> bool
 	{
-		return ImGui::InputScalar(ToImGui(Label), ImGuiDataType_Float, &Value, &Step, &StepFast, ToImGui(Format), Flags);
+		return ImGui::InputScalar(IMGUI_STR(Label), ImGuiDataType_Float, &Value, &Step, &StepFast, IMGUI_STR(Format), Flags);
 	});
 	FAngelscriptBinds::BindGlobalFunction("bool InputFloat(const FString& Label, float64& Value, float64 Step = 0.1, float64 StepFast = 10, const FString& Format = \"%.3f\", EImGuiInputTextFlags Flags = EImGuiInputTextFlags::None)",
 	[](const FString& Label, double& Value, const double Step, const double StepFast, const FString& Format, const ImGuiInputTextFlags Flags) -> bool
 	{
-		return ImGui::InputScalar(ToImGui(Label), ImGuiDataType_Double, &Value, &Step, &StepFast, ToImGui(Format), Flags);
+		return ImGui::InputScalar(IMGUI_STR(Label), ImGuiDataType_Double, &Value, &Step, &StepFast, IMGUI_STR(Format), Flags);
 	});
 	FAngelscriptBinds::BindGlobalFunction("bool InputInt(const FString& Label, int64& Value, int64 Step = 1, int64 StepFast = 100, EImGuiInputTextFlags Flags = EImGuiInputTextFlags::None)",
 	[](const FString& Label, int64& Value, const int64 Step, const int64 StepFast, const ImGuiInputTextFlags Flags) -> bool
 	{
-		return ImGui::InputScalar(ToImGui(Label), ImGuiDataType_S64, &Value, &Step, &StepFast, nullptr, Flags);
+		return ImGui::InputScalar(IMGUI_STR(Label), ImGuiDataType_S64, &Value, &Step, &StepFast, nullptr, Flags);
 	});
 	FAngelscriptBinds::BindGlobalFunction("bool InputInt(const FString& Label, uint64& Value, int64 Step = 1, uint64 StepFast = 100, EImGuiInputTextFlags Flags = EImGuiInputTextFlags::None)",
 	[](const FString& Label, uint64& Value, const uint64 Step, const uint64 StepFast, const ImGuiInputTextFlags Flags) -> bool
 	{
-		return ImGui::InputScalar(ToImGui(Label), ImGuiDataType_U64, &Value, &Step, &StepFast, nullptr, Flags);
+		return ImGui::InputScalar(IMGUI_STR(Label), ImGuiDataType_U64, &Value, &Step, &StepFast, nullptr, Flags);
 	});
 	FAngelscriptBinds::BindGlobalFunction("bool InputInt(const FString& Label, int32& Value, int32 Step = 1, int32 StepFast = 100, EImGuiInputTextFlags Flags = EImGuiInputTextFlags::None)",
 	[](const FString& Label, int32& Value, const int32 Step, const int32 StepFast, const ImGuiInputTextFlags Flags) -> bool
 	{
-		return ImGui::InputScalar(ToImGui(Label), ImGuiDataType_S32, &Value, &Step, &StepFast, nullptr, Flags);
+		return ImGui::InputScalar(IMGUI_STR(Label), ImGuiDataType_S32, &Value, &Step, &StepFast, nullptr, Flags);
 	});
 	FAngelscriptBinds::BindGlobalFunction("bool InputInt(const FString& Label, uint32& Value, int64 Step = 1, uint32 StepFast = 100, EImGuiInputTextFlags Flags = EImGuiInputTextFlags::None)",
 	[](const FString& Label, uint32& Value, const uint32 Step, const uint32 StepFast, const ImGuiInputTextFlags Flags) -> bool
 	{
-		return ImGui::InputScalar(ToImGui(Label), ImGuiDataType_U32, &Value, &Step, &StepFast, nullptr, Flags);
+		return ImGui::InputScalar(IMGUI_STR(Label), ImGuiDataType_U32, &Value, &Step, &StepFast, nullptr, Flags);
 	});
 	FAngelscriptBinds::BindGlobalFunction("bool InputInt(const FString& Label, int16& Value, int64 Step = 1, int16 StepFast = 100, EImGuiInputTextFlags Flags = EImGuiInputTextFlags::None)",
 	[](const FString& Label, int16& Value, const int16 Step, const int16 StepFast, const ImGuiInputTextFlags Flags) -> bool
 	{
-		return ImGui::InputScalar(ToImGui(Label), ImGuiDataType_S16, &Value, &Step, &StepFast, nullptr, Flags);
+		return ImGui::InputScalar(IMGUI_STR(Label), ImGuiDataType_S16, &Value, &Step, &StepFast, nullptr, Flags);
 	});
 	FAngelscriptBinds::BindGlobalFunction("bool InputInt(const FString& Label, uint16& Value, int64 Step = 1, uint16 StepFast = 100, EImGuiInputTextFlags Flags = EImGuiInputTextFlags::None)",
 	[](const FString& Label, uint16& Value, const uint16 Step, const uint16 StepFast, const ImGuiInputTextFlags Flags) -> bool
 	{
-		return ImGui::InputScalar(ToImGui(Label), ImGuiDataType_U16, &Value, &Step, &StepFast, nullptr, Flags);
+		return ImGui::InputScalar(IMGUI_STR(Label), ImGuiDataType_U16, &Value, &Step, &StepFast, nullptr, Flags);
 	});
 	FAngelscriptBinds::BindGlobalFunction("bool InputInt(const FString& Label, int8& Value, int64 Step = 1, int8 StepFast = 100, EImGuiInputTextFlags Flags = EImGuiInputTextFlags::None)",
 	[](const FString& Label, int8& Value, const int8 Step, const int8 StepFast, const ImGuiInputTextFlags Flags) -> bool
 	{
-		return ImGui::InputScalar(ToImGui(Label), ImGuiDataType_S8, &Value, &Step, &StepFast, nullptr, Flags);
+		return ImGui::InputScalar(IMGUI_STR(Label), ImGuiDataType_S8, &Value, &Step, &StepFast, nullptr, Flags);
 	});
 	FAngelscriptBinds::BindGlobalFunction("bool InputInt(const FString& Label, uint8& Value, int64 Step = 1, uint8 StepFast = 100, EImGuiInputTextFlags Flags = EImGuiInputTextFlags::None)",
 	[](const FString& Label, uint8& Value, const uint8 Step, const uint8 StepFast, const ImGuiInputTextFlags Flags) -> bool
 	{
-		return ImGui::InputScalar(ToImGui(Label), ImGuiDataType_U8, &Value, &Step, &StepFast, nullptr, Flags);
+		return ImGui::InputScalar(IMGUI_STR(Label), ImGuiDataType_U8, &Value, &Step, &StepFast, nullptr, Flags);
 	});
 
 	FAngelscriptBinds::BindGlobalFunction("bool InputFloat2(const FString& Label, FVector2f& Value, float32 Step = 0.1, float32 StepFast = 10, const FString& Format = \"%.3f\", EImGuiInputTextFlags Flags = EImGuiInputTextFlags::None)",
 	[](const FString& Label, FVector2f& Value, const float Step, const float StepFast, const FString& Format, const ImGuiInputTextFlags Flags) -> bool
 	{
-		return ImGui::InputScalarN(ToImGui(Label), ImGuiDataType_Float, &Value, 2, &Step, &StepFast, ToImGui(Format), Flags);
+		return ImGui::InputScalarN(IMGUI_STR(Label), ImGuiDataType_Float, &Value, 2, &Step, &StepFast, IMGUI_STR(Format), Flags);
 	});
 	FAngelscriptBinds::BindGlobalFunction("bool InputFloat2(const FString& Label, FVector2D& Value, float64 Step = 0.1, float64 StepFast = 10, const FString& Format = \"%.3f\", EImGuiInputTextFlags Flags = EImGuiInputTextFlags::None)",
 	[](const FString& Label, FVector2D& Value, const double Step, const double StepFast, const FString& Format, const ImGuiInputTextFlags Flags) -> bool
 	{
-		return ImGui::InputScalarN(ToImGui(Label), ImGuiDataType_Double, &Value, 2, &Step, &StepFast, ToImGui(Format), Flags);
+		return ImGui::InputScalarN(IMGUI_STR(Label), ImGuiDataType_Double, &Value, 2, &Step, &StepFast, IMGUI_STR(Format), Flags);
 	});
 	FAngelscriptBinds::BindGlobalFunction("bool InputFloat3(const FString& Label, FVector3f& Value, float32 Step = 0.1, float32 StepFast = 10, const FString& Format = \"%.3f\", EImGuiInputTextFlags Flags = EImGuiInputTextFlags::None)",
 	[](const FString& Label, FVector3f& Value, const float Step, const float StepFast, const FString& Format, const ImGuiInputTextFlags Flags) -> bool
 	{
-		return ImGui::InputScalarN(ToImGui(Label), ImGuiDataType_Float, &Value, 3, &Step, &StepFast, ToImGui(Format), Flags);
+		return ImGui::InputScalarN(IMGUI_STR(Label), ImGuiDataType_Float, &Value, 3, &Step, &StepFast, IMGUI_STR(Format), Flags);
 	});
 	FAngelscriptBinds::BindGlobalFunction("bool InputFloat3(const FString& Label, FVector& Value, float64 Step = 0.1, float64 StepFast = 10, const FString& Format = \"%.3f\", EImGuiInputTextFlags Flags = EImGuiInputTextFlags::None)",
 	[](const FString& Label, FVector& Value, const double Step, const double StepFast, const FString& Format, const ImGuiInputTextFlags Flags) -> bool
 	{
-		return ImGui::InputScalarN(ToImGui(Label), ImGuiDataType_Double, &Value, 3, &Step, &StepFast, ToImGui(Format), Flags);
+		return ImGui::InputScalarN(IMGUI_STR(Label), ImGuiDataType_Double, &Value, 3, &Step, &StepFast, IMGUI_STR(Format), Flags);
 	});
 	// FAngelscriptBinds::BindGlobalFunction("bool InputFloat4(const FString& Label, FVector4f& Value, float32 Step = 0.1, float32 StepFast = 10, const FString& Format = \"%.3f\", EImGuiInputTextFlags Flags = EImGuiInputTextFlags::None)",
 	// [](const FString& Label, FVector4f& Value, const float Step, const float StepFast, const FString& Format, const ImGuiInputTextFlags Flags) -> bool
@@ -1591,7 +1591,7 @@ FAngelscriptBinds::FBind Bind_ImGui_Selectables(FAngelscriptBinds::EOrder::Late,
 	FAngelscriptBinds::BindGlobalFunction("bool Selectable(const FString& Label, bool& bSelected, const FVector2f& Size = FVector2f(0, 0), EImGuiSelectableFlags Flags = EImGuiSelectableFlags::None)",
 	[](const FString& Label, bool& bSelected, const FVector2f& Size, const ImGuiSelectableFlags Flags) -> bool
 	{
-		return ImGui::Selectable(ToImGui(Label), &bSelected, Flags, ToImGui(Size));
+		return ImGui::Selectable(IMGUI_STR(Label), &bSelected, Flags, ToImGui(Size));
 	});
 });
 
@@ -1601,7 +1601,7 @@ FAngelscriptBinds::FBind Bind_ImGui_ListBox(FAngelscriptBinds::EOrder::Late, []
 	FAngelscriptBinds::BindGlobalFunction("bool BeginListBox(const FString& Label, const FVector2f& Size = FVector2f(0, 0))",
 	[](const FString& Label, const FVector2f& Size) -> bool
 	{
-		return ImGui::BeginListBox(ToImGui(Label), ToImGui(Size));
+		return ImGui::BeginListBox(IMGUI_STR(Label), ToImGui(Size));
 	});
 	FAngelscriptBinds::BindGlobalFunction("void EndListBox()",
 	[]() -> void
@@ -1612,7 +1612,7 @@ FAngelscriptBinds::FBind Bind_ImGui_ListBox(FAngelscriptBinds::EOrder::Late, []
 	[](const FString& Label, int32& CurrentItem, const TArray<FString>& Items, const int32 HeightInItems = -1) -> bool
 	{
 		FStringArrayToPtrHelper ItemsBuffer(Items);
-		return ImGui::ListBox(ToImGui(Label), &CurrentItem, ItemsBuffer.GetPtr(), Items.Num(), HeightInItems);
+		return ImGui::ListBox(IMGUI_STR(Label), &CurrentItem, ItemsBuffer.GetPtr(), Items.Num(), HeightInItems);
 	});
 });
 
@@ -1642,7 +1642,7 @@ FAngelscriptBinds::FBind Bind_ImGui_Menu_Widgets(FAngelscriptBinds::EOrder::Late
 	FAngelscriptBinds::BindGlobalFunction("bool BeginMenu(const FString& Label, const bool bEnabled = true)",
 	[](const FString& Label, const bool bEnabled) -> bool
 	{
-		return ImGui::BeginMenu(ToImGui(Label), bEnabled);
+		return ImGui::BeginMenu(IMGUI_STR(Label), bEnabled);
 	});
 	FAngelscriptBinds::BindGlobalFunction("void EndMenu()",
 	[]() -> void
@@ -1652,8 +1652,8 @@ FAngelscriptBinds::FBind Bind_ImGui_Menu_Widgets(FAngelscriptBinds::EOrder::Late
 	FAngelscriptBinds::BindGlobalFunction("bool MenuItem(const FString& Label, const FString& Shortcut = \"\", bool bSelected = false, bool bEnabled = true)",
 	[](const FString& Label, const FString& Shortcut, const bool bSelected, const bool bEnabled) -> bool
 	{
-		const char* ImGuiShortcut = Shortcut.IsEmpty() ? nullptr : ToImGui(Shortcut);
-		return ImGui::MenuItem(ToImGui(Label), ImGuiShortcut, bSelected, bEnabled);
+		const char* ImGuiShortcut = Shortcut.IsEmpty() ? nullptr : IMGUI_STR(Shortcut);
+		return ImGui::MenuItem(IMGUI_STR(Label), ImGuiShortcut, bSelected, bEnabled);
 	});
 });
 
@@ -1673,7 +1673,7 @@ FAngelscriptBinds::FBind Bind_ImGui_Tooltips(FAngelscriptBinds::EOrder::Late, []
 	FAngelscriptBinds::BindGlobalFunction("bool SetTooltip(const FString& Text)",
 	[](const FString& Identifier) -> void
 	{
-		ImGui::SetTooltip(ToImGui(Identifier));
+		ImGui::SetTooltip(IMGUI_STR(Identifier));
 	});
 });
 
@@ -1683,12 +1683,12 @@ FAngelscriptBinds::FBind Bind_ImGui_TreeNode(FAngelscriptBinds::EOrder::Late, []
 	FAngelscriptBinds::BindGlobalFunction("bool TreeNode(const FString& Label)",
 	[](const FString& Label) -> bool
 	{
-		return ImGui::TreeNode(ToImGui(Label));
+		return ImGui::TreeNode(IMGUI_STR(Label));
 	});
 	FAngelscriptBinds::BindGlobalFunction("bool TreeNodeEx(const FString& Label, EImGuiTreeNodeFlags Flags = EImGuiTreeNodeFlags::None)",
 	[](const FString& Label, const ImGuiTreeNodeFlags Flags) -> bool
 	{
-		return ImGui::TreeNodeEx(ToImGui(Label), Flags);
+		return ImGui::TreeNodeEx(IMGUI_STR(Label), Flags);
 	});
 	FAngelscriptBinds::BindGlobalFunction("void TreePop()",
 	[]() -> void
@@ -1703,7 +1703,7 @@ FAngelscriptBinds::FBind Bind_ImGui_TreeNode(FAngelscriptBinds::EOrder::Late, []
 	FAngelscriptBinds::BindGlobalFunction("bool CollapsingHeader(const FString& Label, EImGuiTreeNodeFlags Flags = EImGuiTreeNodeFlags::None)",
 	[](const FString& Label, const ImGuiTreeNodeFlags Flags) -> bool
 	{
-		return ImGui::CollapsingHeader(ToImGui(Label), Flags);
+		return ImGui::CollapsingHeader(IMGUI_STR(Label), Flags);
 	});
 });
 
@@ -1713,17 +1713,17 @@ FAngelscriptBinds::FBind Bind_ImGui_Popups(FAngelscriptBinds::EOrder::Late, []
 	FAngelscriptBinds::BindGlobalFunction("bool BeginPopup(const FString& Identifier, EImGuiWindowFlags Flags = EImGuiWindowFlags::None)",
 	[](const FString& Identifier, const ImGuiWindowFlags Flags) -> bool
 	{
-		return ImGui::BeginPopup(ToImGui(Identifier), Flags);
+		return ImGui::BeginPopup(IMGUI_STR(Identifier), Flags);
 	});
 	FAngelscriptBinds::BindGlobalFunction("bool BeginPopupModal(const FString& Name, EImGuiWindowFlags Flags = EImGuiWindowFlags::None)",
 	[](const FString& Name, const ImGuiWindowFlags Flags) -> bool
 	{
-		return ImGui::BeginPopupModal(ToImGui(Name), nullptr, Flags);
+		return ImGui::BeginPopupModal(IMGUI_STR(Name), nullptr, Flags);
 	});
 	FAngelscriptBinds::BindGlobalFunction("bool BeginPopupModal(const FString& Name, bool& bOpen, EImGuiWindowFlags Flags = EImGuiWindowFlags::None)",
 	[](const FString& Name, bool& bOpen, const ImGuiWindowFlags Flags) -> bool
 	{
-		return ImGui::BeginPopupModal(ToImGui(Name), &bOpen, Flags);
+		return ImGui::BeginPopupModal(IMGUI_STR(Name), &bOpen, Flags);
 	});
 	FAngelscriptBinds::BindGlobalFunction("void EndPopup()",
 	[]() -> void
@@ -1733,12 +1733,12 @@ FAngelscriptBinds::FBind Bind_ImGui_Popups(FAngelscriptBinds::EOrder::Late, []
 	FAngelscriptBinds::BindGlobalFunction("bool OpenPopup(const FString& Identifier, EImGuiPopupFlags Flags = EImGuiPopupFlags::None)",
 	[](const FString& Identifier, const ImGuiPopupFlags Flags) -> void
 	{
-		ImGui::OpenPopup(ToImGui(Identifier), Flags);
+		ImGui::OpenPopup(IMGUI_STR(Identifier), Flags);
 	});
 	FAngelscriptBinds::BindGlobalFunction("bool OpenPopupOnItemClick(const FString& Identifier, EImGuiPopupFlags Flags = EImGuiPopupFlags::MouseButtonLeft)",
 	[](const FString& Identifier, const ImGuiPopupFlags Flags) -> void
 	{
-		ImGui::OpenPopupOnItemClick(ToImGui(Identifier), Flags);
+		ImGui::OpenPopupOnItemClick(IMGUI_STR(Identifier), Flags);
 	});
 	FAngelscriptBinds::BindGlobalFunction("void CloseCurrentPopup()",
 	[]() -> void
@@ -1748,22 +1748,22 @@ FAngelscriptBinds::FBind Bind_ImGui_Popups(FAngelscriptBinds::EOrder::Late, []
 	FAngelscriptBinds::BindGlobalFunction("bool BeginPopupContextItem(const FString& Identifier, EImGuiPopupFlags Flags = EImGuiPopupFlags::MouseButtonLeft)",
 	[](const FString& Identifier, const ImGuiPopupFlags Flags) -> void
 	{
-		ImGui::BeginPopupContextItem(ToImGui(Identifier), Flags);
+		ImGui::BeginPopupContextItem(IMGUI_STR(Identifier), Flags);
 	});
 	FAngelscriptBinds::BindGlobalFunction("bool BeginPopupContextWindow(const FString& Identifier, EImGuiPopupFlags Flags = EImGuiPopupFlags::MouseButtonLeft)",
 	[](const FString& Identifier, const ImGuiPopupFlags Flags) -> void
 	{
-		ImGui::BeginPopupContextWindow(ToImGui(Identifier), Flags);
+		ImGui::BeginPopupContextWindow(IMGUI_STR(Identifier), Flags);
 	});
 	FAngelscriptBinds::BindGlobalFunction("bool BeginPopupContextVoid(const FString& Identifier, EImGuiPopupFlags Flags = EImGuiPopupFlags::MouseButtonLeft)",
 	[](const FString& Identifier, const ImGuiPopupFlags Flags) -> void
 	{
-		ImGui::BeginPopupContextVoid(ToImGui(Identifier), Flags);
+		ImGui::BeginPopupContextVoid(IMGUI_STR(Identifier), Flags);
 	});
 	FAngelscriptBinds::BindGlobalFunction("bool CloseCurrentPopup(const FString& Identifier, EImGuiPopupFlags Flags = EImGuiPopupFlags::None)",
 	[](const FString& Identifier, ImGuiPopupFlags Flags) -> bool
 	{
-		return ImGui::IsPopupOpen(ToImGui(Identifier), Flags);
+		return ImGui::IsPopupOpen(IMGUI_STR(Identifier), Flags);
 	});
 });
 
@@ -1773,7 +1773,7 @@ FAngelscriptBinds::FBind Bind_ImGui_Tabs(FAngelscriptBinds::EOrder::Late, []
 	FAngelscriptBinds::BindGlobalFunction("bool BeginTabBar(const FString& Identifier, EImGuiTabBarFlags Flags = EImGuiTabBarFlags::None)",
 	[](const FString& Identifier, const ImGuiTabBarFlags Flags) -> bool
 	{
-		return ImGui::BeginTabBar(ToImGui(Identifier), Flags);
+		return ImGui::BeginTabBar(IMGUI_STR(Identifier), Flags);
 	});
 	FAngelscriptBinds::BindGlobalFunction("void EndTabBar()",
 	[]() -> void
@@ -1783,12 +1783,12 @@ FAngelscriptBinds::FBind Bind_ImGui_Tabs(FAngelscriptBinds::EOrder::Late, []
 	FAngelscriptBinds::BindGlobalFunction("bool BeginTabItem(const FString& Label, EImGuiTabItemFlags Flags = EImGuiTabItemFlags::None)",
 	[](const FString& Label, const ImGuiTabItemFlags Flags) -> bool
 	{
-		return ImGui::BeginTabItem(ToImGui(Label), nullptr, Flags);
+		return ImGui::BeginTabItem(IMGUI_STR(Label), nullptr, Flags);
 	});
 	FAngelscriptBinds::BindGlobalFunction("bool BeginTabItem(const FString& Label, bool& bOpen, EImGuiTabItemFlags Flags = EImGuiTabItemFlags::None)",
 	[](const FString& Label, bool& bOpen, const ImGuiTabItemFlags Flags) -> bool
 	{
-		return ImGui::BeginTabItem(ToImGui(Label), &bOpen, Flags);
+		return ImGui::BeginTabItem(IMGUI_STR(Label), &bOpen, Flags);
 	});
 	FAngelscriptBinds::BindGlobalFunction("void EndTabItem()",
 	[]() -> void
@@ -1798,12 +1798,12 @@ FAngelscriptBinds::FBind Bind_ImGui_Tabs(FAngelscriptBinds::EOrder::Late, []
 	FAngelscriptBinds::BindGlobalFunction("bool TabItemButton(const FString& Label, EImGuiTabItemFlags Flags = EImGuiTabItemFlags::None)",
 	[](const FString& Label, const ImGuiTabItemFlags Flags) -> bool
 	{
-		return ImGui::TabItemButton(ToImGui(Label), Flags);
+		return ImGui::TabItemButton(IMGUI_STR(Label), Flags);
 	});
 	FAngelscriptBinds::BindGlobalFunction("void SetTabItemClosed(const FString& Label)",
 	[](const FString& Label) -> void
 	{
-		ImGui::SetTabItemClosed(ToImGui(Label));
+		ImGui::SetTabItemClosed(IMGUI_STR(Label));
 	});
 });
 

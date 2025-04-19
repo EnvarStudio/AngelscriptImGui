@@ -6,7 +6,7 @@
 
 FImGuiScopedID::FImGuiScopedID(const FString& StringID)
 {
-	ImGui::PushID(ToImGui(StringID));
+	ImGui::PushID(IMGUI_STR(StringID));
 	bHasPushedID = true;
 }
 

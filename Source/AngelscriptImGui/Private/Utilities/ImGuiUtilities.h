@@ -11,6 +11,8 @@
 #include "AngelscriptDocs.h"
 #endif
 
+#define IMGUI_STR(Value) StringCast<ANSICHAR>(*Value).Get()
+
 FORCEINLINE ImVec2 ToImGui(const FVector2f& Vector)
 {
 	return ImVec2(Vector.X, Vector.Y);
@@ -34,11 +36,6 @@ FORCEINLINE ImVec4 ToImGui(const FVector4& Vector)
 FORCEINLINE ImVec4 ToImGui(const FColor& Color)
 {
 	return ToImGui(FVector4(Color));
-}
-
-FORCEINLINE const char* ToImGui(const FString& String)
-{
-	return StringCast<ANSICHAR>(*String).Get();
 }
 
 struct FImGuiEnumType final : public TAngelscriptPODType<int32>
