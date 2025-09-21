@@ -29,11 +29,15 @@ FAngelscriptBinds::FBind Bind_ImPlotFlags(FAngelscriptBinds::EOrder::Early, []
     IMGUI_ENUM_VALUE(ImPlotFlags, NoInputs,);
     IMGUI_ENUM_VALUE(ImPlotFlags, NoMenus,);
     IMGUI_ENUM_VALUE(ImPlotFlags, NoBoxSelect,);
+#if !IMPLOT_LATEST
     IMGUI_ENUM_VALUE(ImPlotFlags, NoChild,);
+#endif
     IMGUI_ENUM_VALUE(ImPlotFlags, NoFrame,);
     IMGUI_ENUM_VALUE(ImPlotFlags, Equal,);
     IMGUI_ENUM_VALUE(ImPlotFlags, Crosshairs,);
+#if !IMPLOT_LATEST
     IMGUI_ENUM_VALUE(ImPlotFlags, AntiAliased,);
+#endif
     IMGUI_ENUM_VALUE(ImPlotFlags, CanvasOnly,);
 });
 
@@ -49,8 +53,10 @@ FAngelscriptBinds::FBind Bind_ImPlotAxisFlags(FAngelscriptBinds::EOrder::Early, 
     IMGUI_ENUM_VALUE(ImPlotAxisFlags, NoMenus,);
     IMGUI_ENUM_VALUE(ImPlotAxisFlags, Opposite,);
     IMGUI_ENUM_VALUE(ImPlotAxisFlags, Foreground,);
+#if !IMPLOT_LATEST
     IMGUI_ENUM_VALUE(ImPlotAxisFlags, LogScale,);
     IMGUI_ENUM_VALUE(ImPlotAxisFlags, Time,);
+#endif
     IMGUI_ENUM_VALUE(ImPlotAxisFlags, Invert,);
     IMGUI_ENUM_VALUE(ImPlotAxisFlags, AutoFit,);
     IMGUI_ENUM_VALUE(ImPlotAxisFlags, RangeFit,);
@@ -456,7 +462,7 @@ FAngelscriptBinds::FBind Bind_ImGui_PlotItems(FAngelscriptBinds::EOrder::Late, [
 	{
 		if (!Values.IsEmpty())
 		{
-			ImPlot::PlotBarsH(IMGUI_STR(Label), &Values[0].X, &Values[0].Y, Values.Num(), BarHeight, 0, sizeof(FVector2f));
+			ImPlot::PlotBars(IMGUI_STR(Label), &Values[0].X, &Values[0].Y, Values.Num(), BarHeight, ImPlotBarsFlags_Horizontal, sizeof(FVector2f));
 		}
 	});
 	FAngelscriptBinds::BindGlobalFunction("void PlotBarsH(const FString& Label, const TArray<FVector2D> Values, float64 BarHeight = 0.67)",
@@ -464,7 +470,7 @@ FAngelscriptBinds::FBind Bind_ImGui_PlotItems(FAngelscriptBinds::EOrder::Late, [
 	{
 		if (!Values.IsEmpty())
 		{
-			ImPlot::PlotBarsH(IMGUI_STR(Label), &Values[0].X, &Values[0].Y, Values.Num(), BarHeight, 0, sizeof(FVector2D));
+			ImPlot::PlotBars(IMGUI_STR(Label), &Values[0].X, &Values[0].Y, Values.Num(), BarHeight, ImPlotBarsFlags_Horizontal, sizeof(FVector2D));
 		}
 	});
 	// void PlotBarGroups(const char* const label_ids[], const T* values, int item_count, int group_count, double group_width=0.67, double x0=0, ImPlotBarGroupsFlags flags=ImPlotBarGroupsFlags_None);
@@ -494,7 +500,7 @@ FAngelscriptBinds::FBind Bind_ImGui_PlotItems(FAngelscriptBinds::EOrder::Late, [
 	{
 		if (!Values.IsEmpty())
 		{
-			ImPlot::PlotVLines(IMGUI_STR(Label), Values.GetData(), Values.Num(), 0, sizeof(FVector2D));
+			ImPlot::PlotInfLines(IMGUI_STR(Label), Values.GetData(), Values.Num(), 0, sizeof(FVector2D));
 		}
 	});
 	FAngelscriptBinds::BindGlobalFunction("void PlotVLines(const FString& Label, const TArray<float64> Values)",
@@ -502,7 +508,7 @@ FAngelscriptBinds::FBind Bind_ImGui_PlotItems(FAngelscriptBinds::EOrder::Late, [
 	{
 		if (!Values.IsEmpty())
 		{
-			ImPlot::PlotVLines(IMGUI_STR(Label), Values.GetData(), Values.Num(), 0, sizeof(double));
+			ImPlot::PlotInfLines(IMGUI_STR(Label), Values.GetData(), Values.Num(), 0, sizeof(double));
 		}
 	});
 	FAngelscriptBinds::BindGlobalFunction("void PlotHLines(const FString& Label, const TArray<float32> Values)",
@@ -510,7 +516,7 @@ FAngelscriptBinds::FBind Bind_ImGui_PlotItems(FAngelscriptBinds::EOrder::Late, [
 	{
 		if (!Values.IsEmpty())
 		{
-			ImPlot::PlotHLines(IMGUI_STR(Label), Values.GetData(), Values.Num(), 0, sizeof(FVector2D));
+			ImPlot::PlotInfLines(IMGUI_STR(Label), Values.GetData(), Values.Num(), ImPlotInfLinesFlags_Horizontal, sizeof(FVector2D));
 		}
 	});
 	FAngelscriptBinds::BindGlobalFunction("void PlotHLines(const FString& Label, const TArray<float64> Values)",
@@ -518,7 +524,7 @@ FAngelscriptBinds::FBind Bind_ImGui_PlotItems(FAngelscriptBinds::EOrder::Late, [
 	{
 		if (!Values.IsEmpty())
 		{
-			ImPlot::PlotHLines(IMGUI_STR(Label), Values.GetData(), Values.Num(), 0, sizeof(double));
+			ImPlot::PlotInfLines(IMGUI_STR(Label), Values.GetData(), Values.Num(), ImPlotInfLinesFlags_Horizontal, sizeof(double));
 		}
 	});
 	// void PlotPieChart(const char* const label_ids[], const T* values, int count, double x, double y, double radius, bool normalize=false, const char* label_fmt="%.1f", double angle0=90);
@@ -545,7 +551,7 @@ FAngelscriptBinds::FBind Bind_ImGui_PlotItems(FAngelscriptBinds::EOrder::Late, [
 	FAngelscriptBinds::BindGlobalFunction("void PlotText(const FString& Text, float64 X, float64 Y, bool Vertical = false, const FVector2f& Offset = FVector2f(0, 0))",
 	[](const FString& Text, const double X, const double Y, const bool Vertical = false, const FVector2f& Offset = FVector2f(0, 0))
 	{
-		ImPlot::PlotText(IMGUI_STR(Text), X, Y, Vertical, ToImGui(Offset));
+		ImPlot::PlotText(IMGUI_STR(Text), X, Y, ToImGui(Offset), Vertical ? ImPlotTextFlags_Vertical : ImPlotTextFlags_None);
 	});
 	FAngelscriptBinds::BindGlobalFunction("void PlotDummy(const FString& Label)",
 	[](const FString& Label)

@@ -11,6 +11,8 @@
 #include "AngelscriptDocs.h"
 #endif
 
+#define IMPLOT_LATEST 1
+
 #define IMGUI_STR(Value) StringCast<ANSICHAR>(*Value).Get()
 
 FORCEINLINE ImVec2 ToImGui(const FVector2f& Vector)

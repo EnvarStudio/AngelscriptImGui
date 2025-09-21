@@ -698,11 +698,31 @@ FAngelscriptBinds::FBind Bind_ImGui_Window_Utilities(FAngelscriptBinds::EOrder::
 	{
 		return ImGui::GetWindowHeight();
 	});
+#if IMGUI_VERSION_NUM <= 19000
 	FAngelscriptBinds::BindGlobalFunction("float32 GetWindowContentRegionWidth()",
 	[]() -> float
 	{
+
 		return ImGui::GetWindowContentRegionWidth();
+
 	});
+#else
+	FAngelscriptBinds::BindGlobalFunction("float32 GetWindowContentRegionWidth()",
+[]() -> float
+	{
+
+		return ImGui::GetWindowContentRegionMax().x - ImGui::GetWindowContentRegionMin().x;
+
+	});
+	FAngelscriptBinds::BindGlobalFunction("float32 GetContentRegionAvailWidth()",
+[]() -> float
+	{
+
+		return ImGui::GetContentRegionAvail().x;
+
+	});
+#endif
+	
 });
 
 FAngelscriptBinds::FBind Bind_ImGui_Window_Manipulation(FAngelscriptBinds::EOrder::Late, []
@@ -1655,7 +1675,7 @@ FAngelscriptBinds::FBind Bind_ImGui_Tooltips(FAngelscriptBinds::EOrder::Late, []
 {
 	FAngelscriptBinds::FNamespace ImGuiNamespace("ImGui");
 	FAngelscriptBinds::BindGlobalFunction("bool BeginTooltip()",
-	[]() -> void
+	[]()
 	{
 		return ImGui::BeginTooltip();
 	});
