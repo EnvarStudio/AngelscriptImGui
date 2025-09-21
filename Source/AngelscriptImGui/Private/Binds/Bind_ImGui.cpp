@@ -1377,25 +1377,19 @@ FAngelscriptBinds::FBind Bind_ImGui_InputText(FAngelscriptBinds::EOrder::Late, [
 		"bool InputText(const FString& Label, FString& Buffer, EImGuiInputTextFlags Flags = EImGuiInputTextFlags::None)",
 		[](const FString& Label, FString& Buffer, ImGuiInputTextFlags Flags) -> bool
 		{
-			Flags &= ~(ImGuiInputTextFlags_CallbackCompletion &
-				ImGuiInputTextFlags_CallbackHistory &
-				ImGuiInputTextFlags_CallbackAlways &
-				ImGuiInputTextFlags_CallbackCharFilter &
-				ImGuiInputTextFlags_CallbackResize);
+				// Create a properly sized buffer for ImGui
+				static const int32 MaxBufferSize = 1024;
+				char TempBuffer[MaxBufferSize];
+				FCStringAnsi::Strncpy(TempBuffer, TCHAR_TO_ANSI(*Buffer), MaxBufferSize - 1);
+				TempBuffer[MaxBufferSize - 1] = '\0';
 
-			Flags |= ImGuiInputTextFlags_CallbackEdit;
+				bool bResult = ImGui::InputText(TCHAR_TO_ANSI(*Label), TempBuffer, MaxBufferSize, Flags);
 
-			TArray<ANSICHAR> Array;
-			Array.AddDefaulted(128);
-			if (!Buffer.IsEmpty())
-			{
-				FCStringAnsi::Strncpy(Array.GetData(), TCHAR_TO_UTF8(*Buffer), Array.Num());
-			}
-			return ImGui::InputText(IMGUI_STR(Label), Array.GetData(), Array.Num(), Flags, [](ImGuiInputTextCallbackData* Data)
-			{
-				*static_cast<FString*>(Data->UserData) = FString(UTF8_TO_TCHAR(Data->Buf));
-				return 0;
-			}, &Buffer);
+				if (bResult)
+				{
+					Buffer = FString(ANSI_TO_TCHAR(TempBuffer));
+				}
+				return bResult;
 		});
 });
 FAngelscriptBinds::FBind Bind_ImGui_Input_Widgets(FAngelscriptBinds::EOrder::Late, []
