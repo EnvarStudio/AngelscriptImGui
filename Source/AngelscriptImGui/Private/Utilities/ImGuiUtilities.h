@@ -11,6 +11,8 @@
 #include "AngelscriptDocs.h"
 #endif
 
+#define IMGUI_STRING(Value) StringCast<ANSICHAR>(*Value).Get()
+
 FORCEINLINE ImVec2 ToImGui(const FVector2f& Vector)
 {
 	return ImVec2(Vector.X, Vector.Y);
@@ -34,11 +36,6 @@ FORCEINLINE ImVec4 ToImGui(const FVector4& Vector)
 FORCEINLINE ImVec4 ToImGui(const FColor& Color)
 {
 	return ToImGui(FVector4(Color));
-}
-
-FORCEINLINE const char* ToImGui(const FString& String)
-{
-	return StringCast<ANSICHAR>(*String).Get();
 }
 
 struct FImGuiEnumType final : public TAngelscriptPODType<int32>
@@ -103,6 +100,7 @@ FORCEINLINE void ImGuiEnum(const FString& InTypeName, const FString& Documentati
 	Flags.bPOD = true;
 	Flags.ExtraFlags |= asOBJ_BASICMATHTYPE;
 
+	// ReSharper disable once CppUE4CodingStandardNamingViolationWarning
 	auto FImGuiEnum_ = FAngelscriptBinds::ValueClass<FImGuiEnumType>(InTypeName, Flags);
 	FAngelscriptType::Register(MakeShared<FImGuiEnumType>(InTypeName));
 #if WITH_EDITOR
@@ -170,7 +168,7 @@ FORCEINLINE void ImGuiEnum(const FString& InTypeName, const FString& Documentati
 
 struct FStringArrayToPtrHelper
 {
-	FStringArrayToPtrHelper(const TArray<FString>& Strings)
+	explicit FStringArrayToPtrHelper(const TArray<FString>& Strings)
 	{
 		Array.Reserve(32 * Strings.Num());
 		CharPtrArray.Reserve(Strings.Num());
@@ -183,7 +181,7 @@ struct FStringArrayToPtrHelper
 			{
 				Array.Reserve(Array.GetAllocatedSize() * 2);
 			}
-			FCStringAnsi::Strncpy(Array.GetData() + Offset, StringCast<ANSICHAR>(*String).Get(), MaxLen);
+			FCStringAnsi::Strncpy(Array.GetData() + Offset, IMGUI_STRING(String), MaxLen);
 			CharPtrArray.Add(reinterpret_cast<ANSICHAR*>(Offset));
 			Offset += MaxLen;
 		}

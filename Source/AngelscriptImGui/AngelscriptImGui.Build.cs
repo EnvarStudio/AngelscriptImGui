@@ -6,7 +6,7 @@ using UnrealBuildTool;
 public class AngelscriptImGui : ModuleRules
 {
 	public AngelscriptImGui(ReadOnlyTargetRules Target) : base(Target)
-	{        
+	{		
 		bLegacyPublicIncludePaths = false;
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 		
