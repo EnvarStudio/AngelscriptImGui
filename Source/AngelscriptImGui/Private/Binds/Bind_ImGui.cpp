@@ -669,12 +669,12 @@ AS_FORCE_LINK const FAngelscriptBinds::FBind Bind_ImGui_Window_Utilities(FAngels
 		return ImGui::IsWindowCollapsed();
 	});
 	FAngelscriptBinds::BindGlobalFunction("bool IsWindowFocused(EImGuiFocusedFlags flags = EImGuiFocusedFlags::None)",
-	[](ImGuiFocusedFlags Flags) -> bool
+	[](const ImGuiFocusedFlags Flags) -> bool
 	{
 		return ImGui::IsWindowFocused(Flags);
 	});
 	FAngelscriptBinds::BindGlobalFunction("bool IsWindowHovered(EImGuiHoveredFlags flags = EImGuiFocusedFlags::None)",
-	[](ImGuiFocusedFlags Flags) -> bool
+	[](const ImGuiFocusedFlags Flags) -> bool
 	{
 		return ImGui::IsWindowHovered(Flags);
 	});
@@ -709,7 +709,7 @@ AS_FORCE_LINK const FAngelscriptBinds::FBind Bind_ImGui_Window_Manipulation(FAng
 {
 	FAngelscriptBinds::FNamespace ImGuiNamespace("ImGui");
 	FAngelscriptBinds::BindGlobalFunction("void SetNextWindowPos(const FVector2f& Position, EImGuiCond Condition = EImGuiCond::None, const FVector2f& Pivot = FVector2f(0, 0))",
-	[](const FVector2f& Position, ImGuiCond Condition, const FVector2f& Pivot) -> void
+	[](const FVector2f& Position, const ImGuiCond Condition, const FVector2f& Pivot) -> void
 	{
 		ImGui::SetNextWindowPos(ToImGui(Position), Condition, ToImGui(Pivot));
 	});
@@ -979,8 +979,8 @@ AS_FORCE_LINK const FAngelscriptBinds::FBind Bind_ImGui_Table(FAngelscriptBinds:
 	{
 		ImGui::EndTable();
 	});
-	FAngelscriptBinds::BindGlobalFunction("void TableSetupColumn(const FString& Label, EImGuiTableFlags Flags = EImGuiTableFlags::None)",
-	[](const FString& Label, const ImGuiTableFlags Flags) -> void
+	FAngelscriptBinds::BindGlobalFunction("void TableSetupColumn(const FString& Label, EImGuiTableColumnFlags Flags = EImGuiTableColumnFlags::None)",
+	[](const FString& Label, const ImGuiTableColumnFlags Flags) -> void
 	{
 		ImGui::TableSetupColumn(IMGUI_STRING(Label), Flags);
 	});
@@ -1762,7 +1762,7 @@ AS_FORCE_LINK const FAngelscriptBinds::FBind Bind_ImGui_Popups(FAngelscriptBinds
 		ImGui::BeginPopupContextVoid(IMGUI_STRING(Identifier), Flags);
 	});
 	FAngelscriptBinds::BindGlobalFunction("bool IsPopupOpen(const FString& Identifier, EImGuiPopupFlags Flags = EImGuiPopupFlags::None)",
-	[](const FString& Identifier, ImGuiPopupFlags Flags) -> bool
+	[](const FString& Identifier, const ImGuiPopupFlags Flags) -> bool
 	{
 		return ImGui::IsPopupOpen(IMGUI_STRING(Identifier), Flags);
 	});
@@ -1929,11 +1929,11 @@ AS_FORCE_LINK const FAngelscriptBinds::FBind Bind_ImGui_Style(FAngelscriptBinds:
 		ImGui::PopStyleColor(Count);
 	});
 	FAngelscriptBinds::BindGlobalFunction("void PushStyleVar(EImGuiStyleVar Idx, float32 Val)",
-	[](ImGuiStyleVar Idx, float Val) {
+	[](const ImGuiStyleVar Idx, const float Val) {
 		ImGui::PushStyleVar(Idx, Val);
 	});
 	FAngelscriptBinds::BindGlobalFunction("void PushStyleVar(EImGuiStyleVar Idx, const FVector2f& Val)",
-	[](ImGuiStyleVar Idx, const FVector2f& Val) {
+	[](const ImGuiStyleVar Idx, const FVector2f& Val) {
 		ImGui::PushStyleVar(Idx, ToImGui(Val));
 	});
 	FAngelscriptBinds::BindGlobalFunction("void PopStyleVar(int32 Count = 1)",

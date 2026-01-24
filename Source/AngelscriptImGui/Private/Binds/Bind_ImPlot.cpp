@@ -306,7 +306,7 @@ AS_FORCE_LINK const FAngelscriptBinds::FBind Bind_ImGui_Setup(FAngelscriptBinds:
 		}
 	});
 	FAngelscriptBinds::BindGlobalFunction("void SetupAxisTicks(EImAxis Axis, float64 VMin, float64 VMax, int32 NTicks, bool KeepDefault = false)",
-	[](const ImAxis Axis, const double VMin, const double VMax, int32 NTicks, const bool KeepDefault)
+	[](const ImAxis Axis, const double VMin, const double VMax, const int32 NTicks, const bool KeepDefault)
 	{
 		ImPlot::SetupAxisTicks(Axis, VMin, VMax, NTicks, nullptr, KeepDefault);
 	});
@@ -342,7 +342,7 @@ AS_FORCE_LINK const FAngelscriptBinds::FBind Bind_ImGui_SetNext(FAngelscriptBind
 {
 	FAngelscriptBinds::FNamespace ImGuiNamespace("ImPlot");
 	FAngelscriptBinds::BindGlobalFunction("void SetNextAxisLimits(EImAxis Axis, float64 VMin, float64 VMax, EImPlotCond Condition = EImPlotCond::Once)",
-	[](const ImAxis Axis, const double VMin, const double VMax, ImPlotCond Condition)
+	[](const ImAxis Axis, const double VMin, const double VMax, const ImPlotCond Condition)
 	{
 		ImPlot::SetNextAxisLimits(Axis, VMin, VMax, Condition);
 	});
