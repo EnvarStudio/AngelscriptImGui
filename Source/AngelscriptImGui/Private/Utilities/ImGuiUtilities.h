@@ -43,8 +43,7 @@ struct FImGuiEnumType final : public TAngelscriptPODType<int32>
 	FString Typename;
 
 	explicit FImGuiEnumType(const FString& InTypename) : Typename(InTypename)
-	{
-	}
+	{}
 
 	virtual bool IsPrimitive() const override
 	{
@@ -57,7 +56,7 @@ struct FImGuiEnumType final : public TAngelscriptPODType<int32>
 	}
 
 	virtual FString GetAngelscriptDeclaration(const FAngelscriptTypeUsage& Usage,
-											  EAngelscriptDeclarationMode Mode) const override
+		EAngelscriptDeclarationMode Mode) const override
 	{
 		switch (Mode)
 		{
@@ -67,12 +66,12 @@ struct FImGuiEnumType final : public TAngelscriptPODType<int32>
 		case EAngelscriptDeclarationMode::FunctionReturnValue:
 			return TEXT("int32");
 		default:
-			return Typename;
+			return TEXT("int32");
 		}
 	}
 
 	virtual bool GetDebuggerValue(const FAngelscriptTypeUsage& Usage, void* Address,
-								  struct FDebuggerValue& Value) const override
+		struct FDebuggerValue& Value) const override
 	{
 		Value.Type = Usage.GetAngelscriptDeclaration();
 		Value.Usage = Usage;
@@ -83,8 +82,8 @@ struct FImGuiEnumType final : public TAngelscriptPODType<int32>
 
 	virtual bool GetCppForm(const FAngelscriptTypeUsage& Usage, FAngelscriptType::FCppForm& OutCppForm) const override
 	{
-		OutCppForm.bIsPrimitive = true;
-		OutCppForm.CppType = TEXT("int");
+		OutCppForm.bIsPrimitive = false;
+		OutCppForm.CppType = TEXT("int32");
 		return true;
 	}
 
@@ -108,54 +107,54 @@ FORCEINLINE void ImGuiEnum(const FString& InTypeName, const FString& Documentati
 #endif
 
 	FImGuiEnum_.Constructor(FString::Printf(TEXT("void f(const %ls& Other)"), *InTypeName),
-	[](int32* Address, const int32& Other)
-	{
-		new(Address) int32(Other);
-	});
-	SCRIPT_TRIVIAL_NATIVE_CONSTRUCTOR(FImGuiEnum_, StringCast<ANSICHAR>(*InTypeName).Get());
+		[](int32* Address, const int32& Other)
+		{
+			new(Address) int32(Other);
+		});
+	SCRIPT_TRIVIAL_NATIVE_CONSTRUCTOR(FImGuiEnum_, "int32");
 
 	FImGuiEnum_.Method(FString::Printf(TEXT("%ls& opAssign(const %ls& Other)"), *InTypeName, *InTypeName),
-	[](int32& This, const int32& Other)
-	{
-		This = Other;
-		return This;
-	});
-	SCRIPT_TRIVIAL_NATIVE_ASSIGNMENT(FImGuiEnum_, StringCast<ANSICHAR>(*InTypeName).Get());
+		[](int32& This, const int32& Other)
+		{
+			This = Other;
+			return This;
+		});
+	SCRIPT_TRIVIAL_NATIVE_ASSIGNMENT(FImGuiEnum_, "int32");
 
 	FImGuiEnum_.Method(FString::Printf(TEXT("%ls opCom() const"), *InTypeName), [](const int32& This)
-	{
-		return ~This;
-	});
+		{
+			return ~This;
+		});
 
 	FImGuiEnum_.Method(FString::Printf(TEXT("bool opEquals(const %ls& Other) const"), *InTypeName),
-	[](const int32& This, const int32 Other)
-	{
-		return This == Other;
-	});
+		[](const int32& This, const int32 Other)
+		{
+			return This == Other;
+		});
 
 	FImGuiEnum_.Method(FString::Printf(TEXT("%ls opOr(const %ls& Other) const"), *InTypeName, *InTypeName),
-	[](const int32& This, const int32& Other)
-	{
-		return This | Other;
-	});
+		[](const int32& This, const int32& Other)
+		{
+			return This | Other;
+		});
 
 	FImGuiEnum_.Method(FString::Printf(TEXT("%ls opOrAssign(const %ls& Other)"), *InTypeName, *InTypeName),
-	[](int32& This, const int32 Other)
-	{
-		return This |= Other;
-	});
+		[](int32& This, const int32 Other)
+		{
+			return This |= Other;
+		});
 
 	FImGuiEnum_.Method(FString::Printf(TEXT("%ls opAnd(const %ls& Other) const"), *InTypeName, *InTypeName),
-	[](const int32& This, const int32 Other)
-	{
-		return This & Other;
-	});
+		[](const int32& This, const int32 Other)
+		{
+			return This & Other;
+		});
 
 	FImGuiEnum_.Method(FString::Printf(TEXT("%ls opAndAssign(const %ls& Other)"), *InTypeName, *InTypeName),
-	[](int32& This, const int32 Other)
-	{
-		return This &= Other;
-	});
+		[](int32& This, const int32 Other)
+		{
+			return This &= Other;
+		});
 }
 
 #define IMGUI_QUOTE(Value) #Value
