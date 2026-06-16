@@ -1,7 +1,6 @@
 ﻿// Copyright Envar Games AB. All Rights Reserved.
 
 #include "AngelscriptBinds.h"
-#include "Utilities/ImGuiUtilities.h"
 
 struct FImGuiScopedID
 {
